@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'users/css/style.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <title>Title</title>
+</head>
+<body>
+
+
+    <div class="reg">
+        <div class="container">
+            <div class="message">
+                {% if messages %}
+                    {% for message in messages %}
+                    <p class="alert-success">{{ message }}</p>
+
+                        {% endfor %}
+
+                    {% endif %}
+            </div>
+        <form class="forma" action="/users/login/" method="post">
+            {% csrf_token %}
+            <div>
+                <p>введите логин:</p>
+                {{ loginform.login }}
+            </div>
+
+            <div class="pass">
+                <p>пароль:</p>
+                 <p><input type="password" name="password" placeholder="введите пароль" ></p><br>
+            </div>
+            <button type="submit" class="btn btn-outline-danger">вход</button>
+        </form>
+            </div>
+    </div>
+
+
+</body>
+</html>
