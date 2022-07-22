@@ -45,16 +45,45 @@ class Playlist(models.Model):
     def __str__(self):
         return '{0} ' .format(self.name)
 
-
     class Meta:
         verbose_name = 'Плейлист'
         verbose_name_plural = 'Плейлисты'
+
+
+class PlayListImage(models.Model):
+    """image for playlist"""
+    image = models.ForeignKey(Playlist, verbose_name="фото для плейлиста", blank=True, null=True,on_delete=models.CASCADE)
+    path = models.ImageField(upload_to='playlist_images/')
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return '{0} ' .format(self.image)
+
+    class Meta:
+        verbose_name = 'Фото для плейлиста'
+        verbose_name_plural = 'Фото для плейлистов'
+
+
+
+class AlbumImage(models.Model):
+    """image for album"""
+    image = models.ForeignKey(Album, verbose_name="фото для альбома", blank=True, null=True,on_delete=models.CASCADE)
+    path = models.ImageField(upload_to='album_images/')
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return '{0} ' .format(self.image)
+
+    class Meta:
+        verbose_name = 'Фото для альбома'
+        verbose_name_plural = 'Фото для альбомов'
 
 
 
 class Song(models.Model):
     """song"""
     song = models.FileField(upload_to='songs/')
+    image = models.ImageField(blank=True, upload_to='songs_images')
     name = models.CharField('название',max_length=150)
     singer = models.ForeignKey(Singer,verbose_name='исполнитель',on_delete=models.CASCADE,null=True,blank=True)
     album = models.ManyToManyField(Album,verbose_name='альбом',null=True,blank=True)
