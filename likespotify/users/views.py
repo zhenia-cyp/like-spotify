@@ -4,8 +4,8 @@ from django.contrib import messages
 from django.views.generic.base import TemplateView
 from users.forms import UserForm, LoginForm
 from django.contrib.auth import authenticate, login
-
 from users.models import Profile
+from playlists.models import Album
 
 
 class ProfilePageView(TemplateView):
@@ -16,6 +16,8 @@ class ProfilePageView(TemplateView):
         context = super().get_context_data(**kwargs)
         profile = Profile.objects.get(user=self.request.user)
         context['profile']= profile
+        albums = Album.objects.filter(user=self.request.user)
+        context['albums'] = albums
         return context
 
 

@@ -18,14 +18,22 @@
                   </li>
                 </ul>
                        <div>
-                        <div>Добро пожаловать {{ profile.user.username }}</div>
+                        <div class="hi">Добро пожаловать {{ profile.user.username }}</div>
 
-                           <div class="create-menu">
-                               <a href="#">создать альбом</a>
+                           <div style="margin: 15px 0" class="create-menu">
+                               <a href="/playlists/page/album/">создать альбом</a>
                                <a href="#">добавлення музыка</a>
                                <a href="#">cоздать плейлист</a>
                            </div>
 
+                           <div class="curr-album">
+                              {% for album in albums %}
+                                 <p class="curr-album" ><a  href="">{{ album.name }} ({{ album.song_set.all|length }})</a></p>
+
+                               <hr>
+                        {% endfor %}
+
+                    </div>
                            </div>
 
             </div>
