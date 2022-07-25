@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'users/css/style.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <title>Title</title>
+</head>
+<body>
+    <div class="reg">
+        <div class="container">
+            <form action="/playlists/singer/" method="post">{% csrf_token %}
+                <p>исполнитель песни</p>
+                <div>{{ singerform }}</div>
+                <button type="submit" class="btn btn-outline-danger">добавить</button>
+            </form>
+            <div class="back-link">
+{#                <a href="{% url 'playlist page' %}">вернуться к загрузке трека</a>#}
+{#                <a href="{% url 'addalbum page' %}">вернуться к созданию альбома</a>#}
+                </div>
+
+        </div>
+    </div>
+
+
+
+</body>
+</html>

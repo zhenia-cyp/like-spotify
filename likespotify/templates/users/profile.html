@@ -21,18 +21,28 @@
                         <div class="hi">Добро пожаловать {{ profile.user.username }}</div>
                            <div style="margin: 15px 0" class="create-menu">
                                <a href="/playlists/page/album/">создать альбом</a>
-                               <a href="#">добавлення музыка</a>
-                               <a href="#">cоздать плейлист</a>
+<!--                               <a href="#">добавлення музыка</a>-->
+<!--                               <a href="#">cоздать плейлист</a>-->
                            </div>
 
                            <div class="curr-album">
-                              {% for album in albums %}
-                                 <p class="curr-album" ><a  href="">{{ album.name }} ({{ album.song_set.all|length }})</a></p>
+                               <div class="albun-right">
+                                 {% for album in albums %}
+                                   <p class="curr-album" ><a href="/playlists/current/album/{{album.id}}">{{ album.name }} ({{ album.song_set.all|length }})</a></p>
+                                    {% for singer in album.singer.all %}
+                                   <span>{{album.year }} {{album.type}}  {{ singer}} </span>
+                                   {% endfor %}
+                                   <div><small><a href="/playlists/album/song/{{album.id}}">загрузить песню</a></small></div>
 
-                               <hr>
-                        {% endfor %}
-
-                    </div>
+                               </div>
+                               <div class="albun-left">
+                                   {% if album.image %}
+                                         <img height="100px" width="100px" src="{{album.image.url}}" alt="">
+                                     {% endif %}
+                                 <hr>
+                               {% endfor %}
+                               </div>
+                           </div>
                            </div>
             </div>
 

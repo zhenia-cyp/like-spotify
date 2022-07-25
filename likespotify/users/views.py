@@ -22,14 +22,12 @@ class ProfilePageView(TemplateView):
 
 
 
-
 class LoginUserView(View):
     """this class makes authentication for the new user"""
     def post(self,request):
         username = request.POST['login']
         password = request.POST['password']
         user = authenticate(username=username, password=password)
-        # print('***',user)
         if user is not None:
             if user.is_active:
                 login(request, user)

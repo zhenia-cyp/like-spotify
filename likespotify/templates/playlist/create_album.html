@@ -11,7 +11,7 @@
     <div class="reg">
     <div class="container">
         <p>Альбом</p>
-        <form class="forma" action="/playlists/create/new/album/" method="post">{% csrf_token %}
+        <form class="forma" action="/playlists/create/new/album/" enctype="multipart/form-data" method="post">{% csrf_token %}
             <div>
                 <p>название альбома:</p>
                 {{ albumform.name }}
@@ -22,6 +22,18 @@
             <div>
                 <p>год выпуска:</p>
                 {{ albumform.year }}
+            </div>
+            <div>
+                <p>фото для альбома:</p>
+                <span>или оставьте поле пустым</span>
+               <div> {{ albumform.image }}</div>
+            </div>
+            <div>
+                <p>автор альбома:</p>
+                <span>выберите из списка, оставьте поле пустым</span>
+                <div>или <a href="/playlists/singer/">добавить исполнителя</a></div>
+
+                <div> {{ albumform.singer }}</div>
             </div>
             <div hidden>
                 {{ albumform.user }}

@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-
 class Singer(models.Model):
     """singer"""
     name = models.CharField('имя исполнителя', max_length=150)
@@ -20,7 +19,7 @@ class Album(models.Model):
     """album"""
     name = models.CharField('название', max_length=150)
     type = models.CharField('тип', max_length=150,default='альбом')
-    image = models.ImageField(upload_to='album_images',null=True, blank=True)
+    image = models.ImageField(upload_to='playlist_images/',null=True, blank=True)
     quantity = models.CharField('количество треков',max_length=150,null=True, blank=True)
     year = models.CharField('год создания',max_length=150, null=True, blank=True,)
     user = models.ManyToManyField(User,verbose_name='альбом юзера',blank=True)
@@ -28,11 +27,13 @@ class Album(models.Model):
     creator = models.ForeignKey(User,related_name ='acreator',on_delete=models.CASCADE)
 
     def __str__(self):
-        return '{0} {1} {2}' .format(self.name,self.singer,self.year)
+        return '{0} {1} {2} {3}' .format(self.id,self.name,self.singer,self.year)
 
     class Meta:
         verbose_name = 'Альбом'
         verbose_name_plural = 'Альбомы'
+
+
 
 
 class Playlist(models.Model):
@@ -41,7 +42,7 @@ class Playlist(models.Model):
     type = models.CharField('тип',max_length=150,default='плейлист')
     user = models.ManyToManyField(User,verbose_name='юзер',blank=True)
     creator = models.ForeignKey(User,related_name='pcreator',on_delete=models.CASCADE)
-
+    image = models.ImageField(upload_to='playlist_images/')
     def __str__(self):
         return '{0} ' .format(self.name)
 
@@ -50,40 +51,12 @@ class Playlist(models.Model):
         verbose_name_plural = 'Плейлисты'
 
 
-class PlayListImage(models.Model):
-    """image for playlist"""
-    image = models.ForeignKey(Playlist, verbose_name="фото для плейлиста", blank=True, null=True,on_delete=models.CASCADE)
-    path = models.ImageField(upload_to='playlist_images/')
-    is_active = models.BooleanField(default=True)
-
-    def __str__(self):
-        return '{0} ' .format(self.image)
-
-    class Meta:
-        verbose_name = 'Фото для плейлиста'
-        verbose_name_plural = 'Фото для плейлистов'
-
-
-
-class AlbumImage(models.Model):
-    """image for album"""
-    image = models.ForeignKey(Album, verbose_name="фото для альбома", blank=True, null=True,on_delete=models.CASCADE)
-    path = models.ImageField(upload_to='album_images/')
-    is_active = models.BooleanField(default=True)
-
-    def __str__(self):
-        return '{0} ' .format(self.image)
-
-    class Meta:
-        verbose_name = 'Фото для альбома'
-        verbose_name_plural = 'Фото для альбомов'
-
 
 
 class Song(models.Model):
     """song"""
-    song = models.FileField(upload_to='songs/')
-    image = models.ImageField(blank=True, upload_to='songs_images')
+    song = models.FileField(upload_to='songs')
+    image = models.ImageField(upload_to='songs_images',blank=True)
     name = models.CharField('название',max_length=150)
     singer = models.ForeignKey(Singer,verbose_name='исполнитель',on_delete=models.CASCADE,null=True,blank=True)
     album = models.ManyToManyField(Album,verbose_name='альбом',null=True,blank=True)

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'users/css/style.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <title>Title</title>
+</head>
+<body>
+
+<div class="reg">
+        <div class="container">
+
+            <form class="forma" enctype="multipart/form-data" action="/playlists/album/song/{{num}}" method="post" >{% csrf_token %}
+
+                <div><p>имя трека:</p>
+                    {{ songform.name }}</div>
+                <div class="load">
+                    <p>{{ songform.song }}</p>
+                </div>
+                <div><p>исполнитель:</p>
+                    <p>или оставьте поле пустым</p>
+                    {{ songform.singer }}
+                    <a href="/playlists/singer/">добавить исполнителя</a>
+                </div>
+                <div hidden>
+                    {{songform.album}}
+
+                </div>
+
+                <button type="submit" class="btn btn-outline-danger">загрузить</button>
+                </form>
+        </div>
+    </div>
+
+</body>
+</html>

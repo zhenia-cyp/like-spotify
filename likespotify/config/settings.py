@@ -123,12 +123,14 @@ USE_TZ = True
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+REPOSITORY_ROOT = os.path.dirname(BASE_DIR)
+STATIC_ROOT = os.path.join(REPOSITORY_ROOT, 'static/')
+
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# MEDIA_ROOT = os.path.join(REPOSITORY_ROOT, 'media/')
+MEDIA_ROOT= os.path.join(BASE_DIR, 'media/')
+
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
