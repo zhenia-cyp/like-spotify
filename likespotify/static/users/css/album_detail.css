@@ -1,0 +1,38 @@
+* {
+   box-sizing: border-box;
+}
+.header {
+  height: 65px;
+  width: 1200px;
+  margin:  0 auto;
+  z-index: 10;
+  background: #00d5c3;
+}
+.container{
+    width: 1200px;
+    margin:  0 auto;
+    display: flex;
+    justify-content: space-around;
+}
+
+.music {
+ margin-top: 100px;
+}
+
+.music-item {
+  margin-bottom: 25px;
+}
+
+.song{
+  display: flex;
+
+}
+.audio{
+  display: flex;
+  flex-direction: column;
+}
+
+.counter{
+ margin: 0 5px;
+}
+

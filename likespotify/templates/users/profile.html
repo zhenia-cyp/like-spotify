@@ -3,50 +3,59 @@
 <head>
     <meta charset="UTF-8">
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'users/css/style.css' %}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static '/users/css/profile.css' %}">
     <title>Title</title>
 </head>
 <body>
     {% if user.is_authenticated %}
-        <div class="reg">
-            <div class="container">
-                <ul class="nav justify-content-center">
-                  <li class="nav-item">
-                    <a class="nav-link"  href="#">выход</a>
-                      <a class="nav-link" href="#">поиск песен</a>
-                  </li>
-                </ul>
-                       <div>
-                        <div class="hi">Добро пожаловать {{ profile.user.username }}</div>
-                           <div style="margin: 15px 0" class="create-menu">
-                               <a href="/playlists/page/album/">создать альбом</a>
-<!--                               <a href="#">добавлення музыка</a>-->
-<!--                               <a href="#">cоздать плейлист</a>-->
-                           </div>
+    <div class="header">
+        <div class="container">
+            <p>Добро пожаловать: {{ profile.user.username }}</p>
+        </div>
 
-                           <div class="curr-album">
-                               <div class="albun-right">
-                                 {% for album in albums %}
-                                   <p class="curr-album" ><a href="/playlists/current/album/{{album.id}}">{{ album.name }} ({{ album.song_set.all|length }})</a></p>
-                                    {% for singer in album.singer.all %}
-                                   <span>{{album.year }} {{album.type}}  {{ singer}} </span>
-                                   {% endfor %}
-                                   <div><small><a href="/playlists/album/song/{{album.id}}">загрузить песню</a></small></div>
-
-                               </div>
-                               <div class="albun-left">
-                                   {% if album.image %}
-                                         <img height="100px" width="100px" src="{{album.image.url}}" alt="">
-                                     {% endif %}
-                                 <hr>
-                               {% endfor %}
-                               </div>
-                           </div>
-                           </div>
+    </div>
+   <div class="main">
+       <div class="container">
+            <div class="side-bar" >
+                <ul class="side-bar-menu">
+                    <li><a href="#">Главная</a></li>
+                    <li><a href="">создать альбом</a></li>
+<!--                    <li><a href="#"></a></li>-->
+<!--                    <li><a href="#"></a></li>-->
+<!--                    <li><a href="#"></a></li>-->
+<!--                    <li><a href="#"></a></li>-->
+               </ul>
             </div>
 
+           <div class="albums" >
+                <div class="current-album">
+                    <div class="album-left">
+                        {% for album in albums %}
+                          {% if album.image %}
+                           <img height="150px" width="150px" src="{{album.image.url}}" alt="">
+                          {% endif %}
+
+                    </div>
+                    <div class="album-right">
+                        <span class="album-right-title"><a href="/playlists/current/album/{{album.id}}">{{ album.name }} ({{ album.song_set.all|length }})</a></span>
+                         {% for singer in album.singer.all %}
+                          <span>{{album.year }}</span>
+                           <span>{{album.type}}</span>
+                               <span>{{ singer}} </span>
+                          <span><small><a href="/playlists/album/song/{{album.id}}">загрузить песню</a></small></span>
+                         {% endfor %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
         </div>
-  {% endif %}
+   </div>
+   <div class="footer">
+       <div class="container">
+           footer
+       </div>
+   </div>
+
+   {% endif %}
 </body>
 </html>

@@ -36,7 +36,7 @@ class LoginUserView(View):
                 return redirect('authorizpage')
 
         else:
-            return redirect('authorizpage')
+            return  redirect('authorizpage')
 
 
 

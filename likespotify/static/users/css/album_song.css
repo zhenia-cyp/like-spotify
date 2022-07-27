@@ -1,0 +1,39 @@
+
+* {
+   box-sizing: border-box;
+}
+.header {
+  height: 65px;
+  width: 1200px;
+  margin:  0 auto;
+  z-index: 10;
+  background: #00d5c3;
+}
+.container{
+    width: 1200px;
+    margin:  0 auto;
+    display: flex;
+    justify-content: space-around;
+}
+.form {
+  margin-top: 35px;
+}
+
+form > div> span {
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+button{
+  margin-top: 10px;
+  background: none;
+  width: 110px;
+  height: 40px;
+  border: 1px solid #00d5c3;
+  border-radius: 0 4px 0 4px;
+}
+
+button:hover {
+    background-color: #00d5c3;
+    transition-duration: 0.3s;
+}
