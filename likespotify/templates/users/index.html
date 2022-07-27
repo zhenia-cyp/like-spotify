@@ -3,51 +3,46 @@
 <head>
     <meta charset="UTF-8">
      {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'users/css/style.css' %}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="{% static '/users/css/index.css' %}">
+
 </head>
 <body>
-
-
-    <div class="reg">
+     <div class="header">
         <div class="container">
 
-                <ul class="nav justify-content-center">
-                  <li class="nav-item">
-                    <a class="nav-link"  href="/users/registration/">регистрация</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/users/authorizpage/" >вход</a>
-                  </li>
-                </ul>
+        </div>
+    </div>
 
-
-        <form class="forma" action="" method="post" >
-             {% csrf_token %}
+     <div class="main">
+         <div class="container">
+             <div class="form">
+                 <form action="" method="post" >{% csrf_token %}
+                     <div class="form-title">Регистрация</div>
             <div>
-                <p>Имя пользователя:</p>
-                {{ reg_form.username }}
+                <span class="title">имя пользователя:</span>
+                <span class="inpt">{{ reg_form.username }}</span>
             </div>
             <div>
-                <p>Email:</p>
-                {{ reg_form.email }}
+                <span class="title">email</span>
+                <span class="inpt">{{ reg_form.email }}</span>
             </div>
             <div>
-                <p>Пароль:</p>
-                {{ reg_form.password1 }}
+                <span class="title">пароль:</span>
+                <span class="inpt"> {{ reg_form.password1 }}</span>
             </div>
             <div>
-                <p>Подтвердите пароль:</p>
-                {{ reg_form.password2 }}
+                <span class="title">подтвердите пароль:</span>
+                <span class="inpt"> {{ reg_form.password2 }}</span>
             </div>
-            <button type="submit" class="btn btn-outline-danger">регистрация</button>
+            <button type="submit" class="btn btn-outline-danger">зарегистрироваться</button>
         </form>
 
-             {{reg_form.errors.as_text}}
-            </div>
+             </div>
+         </div>
+         <div class="errors"><span>
+             {{ reg_form.errors.as_text }}
+         </span></div>
+     </div>
 
-        </div>
-</div>
 </body>
 </html>
