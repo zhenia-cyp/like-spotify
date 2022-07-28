@@ -10,6 +10,7 @@ class UserForm(UserCreationForm):
 
     email = forms.EmailField(required=True, label='Email')
 
+
     class Meta:
         model = User
         fields = ("username", "email", "password1", "password2")
@@ -33,6 +34,6 @@ class EmailForm(forms.ModelForm):
 
 class LoginForm(forms.Form):
     login = forms.CharField(max_length=150)
-    password = forms.CharField(max_length=150)
+    password = forms.CharField(max_length=150,widget=forms.PasswordInput())
 
 
