@@ -9,6 +9,7 @@ from playlists.models import Album,Song
 from playlists.forms import SingerForm,SongForm
 
 
+
 class SearchPageView(View):
     """search system"""
     def get(self, request):
@@ -25,7 +26,6 @@ class SearchPageView(View):
             return render(request, template, {'all_albums': all_albums,'songs':songs})
 
         return render(request, template, {})
-
 
 
 
@@ -99,7 +99,7 @@ class LoadSongUseAlbumViews(View):
 
 
 
-class PlaylistPageView(TemplateView):
+class AlbumPageView(TemplateView):
     """this class leads to the create_album.html page """
     template_name = 'playlist/create_album.html'
     def get_context_data(self, **kwargs):

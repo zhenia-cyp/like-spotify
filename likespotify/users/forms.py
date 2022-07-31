@@ -2,6 +2,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.forms import TextInput
 
 from users.models import ForEmailForm
 
@@ -33,8 +34,13 @@ class EmailForm(forms.ModelForm):
 
 
 class LoginForm(forms.Form):
-    login = forms.CharField(max_length=150,widget=forms.TextInput())
+    login = forms.CharField(max_length=150,widget=forms.TextInput(attrs={'autocomplete': 'off'}))
     password = forms.CharField(max_length=150,widget=forms.PasswordInput())
+
+    class Meta:
+        widgets = {
+            'login': TextInput(attrs={'autocomplete': 'off'}),
+        }
 
 
 

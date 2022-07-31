@@ -1,3 +1,7 @@
+body{
+ font-family: Verdana;
+}
+
 * {
    box-sizing: border-box;
 }
@@ -16,8 +20,13 @@
     display: flex;
     justify-content: space-around;
 }
+
 .main {
  margin-top:55px;
+}
+
+form {
+ margin:  0 auto;
 }
 
 .title,.inpt{
@@ -29,7 +38,7 @@ button, span{
  font-family: Verdana;
 }
 
-.inpt>input{
+.inpt >input{
   width: 100%;
   padding: 15px;
   display: inline-block;
@@ -37,16 +46,14 @@ button, span{
   background: #f1f1f1;
 }
 
-.form-title{
-  font-family: Georgia;
-  font-size: 25px;
-  margin-bottom: 22px;
+.add-singer {
+    margin-bottom: 15px;
 }
 
 button{
   margin-top: 10px;
   background: none;
-  width: 200px;
+  width: 350px;
   height: 50px;
   border: 1px solid #00d5c3;
   border-radius: 0 4px 0 4px;

@@ -16,7 +16,7 @@
 <div class="main">
     <div class="container">
         <div class="form">
-           <form action="/users/login/"  method="post" >{% csrf_token %}
+           <form action="/users/login/"  method="post" autocomplete="nope" >{% csrf_token %}
             <div>
                 <span class="title">логин:</span>
                 <span class="inpt"> {{ loginform.login }}</span>
@@ -32,9 +32,9 @@
     </div>
     <div class="errors"><span>
              {{ reg_form.errors.as_text }}
-         </span></div>
+         </span>
+    </div>
 </div>
-
 
 
 </body>
