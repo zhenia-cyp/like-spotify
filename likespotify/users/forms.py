@@ -33,7 +33,9 @@ class EmailForm(forms.ModelForm):
 
 
 class LoginForm(forms.Form):
-    login = forms.CharField(max_length=150)
+    login = forms.CharField(max_length=150,widget=forms.TextInput())
     password = forms.CharField(max_length=150,widget=forms.PasswordInput())
+
+
 
 

@@ -9,6 +9,25 @@ from playlists.models import Album,Song
 from playlists.forms import SingerForm,SongForm
 
 
+class SearchPageView(View):
+    """search system"""
+    def get(self, request):
+        template = 'playlist/search_page.html'
+        return render(request, template, {})
+
+    def post(self, request):
+        template = 'playlist/search_page.html'
+        search_query = self.request.POST.get('search', '')
+        print('post search_query',search_query)
+        if search_query:
+            all_albums = Album.objects.filter(name__icontains=search_query)
+            songs = Song.objects.filter(name__icontains=search_query)
+            return render(request, template, {'all_albums': all_albums,'songs':songs})
+
+        return render(request, template, {})
+
+
+
 
 class EditAlbumView(View):
     """edit album"""

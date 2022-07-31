@@ -3,34 +3,32 @@
 <head>
     <meta charset="UTF-8">
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static '/users/css/profile.css' %}">
-    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="{% static '/users/css/search_page.css' %}">
+    <title>Likespotify</title>
 </head>
 <body>
-    {% if user.is_authenticated %}
-    <div class="header">
-        <div class="container">
-            <p>Добро пожаловать: {{ profile.user.username }}</p>
-        </div>
+
+{% if user.is_authenticated %}
+
+<div class="header">
+    <div class="container">
 
     </div>
-   <div class="main">
-       <div class="container">
-            <div class="side-bar" >
-                <ul class="side-bar-menu">
-                    <li><a href="#">Главная</a></li>
-                    <li><a href="">создать альбом</a></li>
-                     <li><a href="/playlists/search/">поиск</a></li>
-<!--                    <li><a href="#"></a></li>-->
-<!--                    <li><a href="#"></a></li>-->
-<!--                    <li><a href="#"></a></li>-->
-               </ul>
-            </div>
+</div>
+<div class="main">
+    <div class="container">
+        <section>
+           <div class="form">
+              <form class="search" action="/playlists/search/" method="post">{% csrf_token %}
+                  <input type="search" name="search" placeholder="...">
+              <button>поиск</button>
+              </form>
+           </div>
 
-           <div class="albums" >
-                <div class="current-album">
+          <div class="albums" >
+            <div class="current-album">
                     <div class="album-left">
-                        {% for album in albums %}
+                        {% for album in all_albums %}
                           {% if album.image %}
                            <img height="150px" width="150px" src="{{album.image.url}}" alt="">
                           {% endif %}
@@ -48,13 +46,20 @@
                 </div>
             </div>
         </div>
-   </div>
-   <div class="footer">
-       <div class="container">
-           footer
-       </div>
-   </div>
+    </section>
+    </div>
 
-   {% endif %}
+</div>
+
+<div class="footer">
+    <div class="container">
+
+    </div>
+
+</div>
+
+
+{% endif %}
+
 </body>
 </html>

@@ -21,15 +21,44 @@ body{
     justify-content: space-around;
 }
 .main {
- margin-top:20px;
+ margin-top:40px;
 }
 
-.side-bar-menu > li {
-   list-style:none;
-   margin-bottom: 10px;
+section{
+  display: block;
+
 }
+
+.form > form{
+ display:flex;
+}
+
+input{
+  width: 100%;
+  padding: 15px;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+  margin: 0 15px;
+}
+
+button{
+  background: none;
+  width: 155px;
+  height: 55px;
+  border: 1px solid #00d5c3;
+  border-radius: 0 4px 0 4px;
+}
+
+button:hover {
+    background-color: #00d5c3;
+    transition-duration: 0.3s;
+}
+
 .albums{
-    margin: 15px 0;
+    margin: 55px 0;
+
+
 }
 .current-album {
     display: flex;
@@ -47,5 +76,7 @@ body{
 .album-right-title{
    padding-bottom: 5px;
 }
+
+
 
 
