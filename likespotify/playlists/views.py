@@ -1,5 +1,4 @@
 import datetime
-
 from django.views.generic import DetailView
 from django.views.generic.base import TemplateView, View
 from playlists.forms import  SongForm,AlbumForm
@@ -7,6 +6,24 @@ from django.contrib import messages
 from django.shortcuts import redirect, render
 from playlists.models import Album,Song
 from playlists.forms import SingerForm,SongForm
+from django.http import Http404
+
+
+
+class DeleteAlbumView(DetailView):
+    """delete album by id"""
+    def get_object(self, *args, **kwargs):
+        pk = self.kwargs.get('pk')
+        try:
+            return Album.objects.get(id=pk)
+        except Album.DoesNotExist:
+            raise Http404
+
+    def get(self, *args, **kwargs):
+        pk = self.kwargs.get('pk')
+        obj = self.get_object(pk)
+        obj.delete()
+        return redirect('profile')
 
 
 
@@ -60,6 +77,7 @@ class CurrentAlbumView(DetailView):
         return context
 
 
+
 class SingerToSongViews(View):
     """the class leads to the page for creating a new song use album"""
     def get(self,request):
@@ -76,6 +94,7 @@ class SingerToSongViews(View):
         else:
             print(singer_form.errors)
             return redirect('create album')
+
 
 
 class LoadSongUseAlbumViews(View):
