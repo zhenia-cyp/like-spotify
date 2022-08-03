@@ -30,13 +30,20 @@ body{
 }
 .albums{
     margin: 15px 0;
+
 }
 .current-album {
     display: flex;
 }
 
+.album-left {
+   width: 150px;
+   height: 150px;
+}
+
 .album-right {
     margin: 0 15px;
+    margin-right: 20px;
 }
 
 .album-right span {

@@ -10,6 +10,8 @@
     {% if user.is_authenticated %}
     <div class="header">
         <div class="container">
+            <div class="auth"><a href="">Log Out</a>
+            </div>
             <p>Добро пожаловать: {{ profile.user.username }}</p>
         </div>
 
@@ -29,8 +31,9 @@
 
            <div class="albums" >
                 <div class="current-album">
+                     {% for album in albums %}
                     <div class="album-left">
-                        {% for album in albums %}
+
                           {% if album.image %}
                            <img height="150px" width="150px" src="{{album.image.url}}" alt="">
                           {% endif %}
@@ -44,8 +47,9 @@
                           <span><small><a href="/playlists/album/song/{{album.id}}">загрузить песню</a></small></span>
                           <span><small><a href="/playlists/delete/current/album/{{album.id}}/">удалить альбом</a></small></span>
                          {% endfor %}
-                        {% endfor %}
+
                     </div>
+                     {% endfor %}
                 </div>
             </div>
         </div>

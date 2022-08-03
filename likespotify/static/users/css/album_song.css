@@ -1,3 +1,6 @@
+body{
+ font-family: Verdana;
+}
 
 * {
    box-sizing: border-box;
@@ -19,16 +22,25 @@
   margin-top: 35px;
 }
 
+input{
+  width: 100%;
+  padding: 15px;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
 form > div> span {
   display: block;
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
 button{
-  margin-top: 10px;
+  margin-top: 20px;
   background: none;
-  width: 110px;
-  height: 40px;
+  width: 285px;
+  height: 50px;
   border: 1px solid #00d5c3;
   border-radius: 0 4px 0 4px;
 }

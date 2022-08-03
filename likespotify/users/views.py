@@ -1,3 +1,4 @@
+from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib import messages
@@ -25,18 +26,23 @@ class ProfilePageView(TemplateView):
 class LoginUserView(View):
     """this class makes authentication for the new user"""
     def post(self,request):
-        username = request.POST['login']
-        password = request.POST['password']
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            if user.is_active:
-                login(request, user)
-                return redirect('profile')
-            else:
-                return redirect('authorizpage')
+        loginform = AuthenticationForm(request,data=request.POST)
+
+        if loginform.is_valid():
+            username = request.POST['username']
+            password = request.POST['password']
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+                    return redirect('profile')
+                else:
+                    print('*',loginform.errors)
+                    return redirect('authorizpage')
 
         else:
-            return  redirect('authorizpage')
+            print('**', loginform.errors)
+            return render(request, 'users/login.html', {'loginform':loginform})
 
 
 
@@ -46,8 +52,8 @@ class AuthorizationPageView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        login_form = LoginForm()
-        context['loginform'] = login_form
+        loginform = AuthenticationForm(self.request)
+        context['loginform'] = loginform
         return context
 
 
