@@ -10,6 +10,23 @@ from django.http import Http404
 
 
 
+class TakeAlbumView(View):
+    """take another user's album"""
+    def get_object(self,request,*args, **kwargs):
+        pk = self.kwargs.get('pk')
+        try:
+            return Album.objects.get(id=pk)
+        except Album.DoesNotExist:
+            raise Http404
+
+    def get(self,request, *args, **kwargs):
+        pk = self.kwargs.get('pk')
+        album = self.get_object(pk)
+        album.user.add(request.user)
+        return redirect('profile')
+
+
+
 class DeleteAlbumView(DetailView):
     """delete album by id"""
     def get_object(self, *args, **kwargs):
@@ -31,7 +48,9 @@ class SearchPageView(View):
     """search system"""
     def get(self, request):
         template = 'playlist/search_page.html'
-        return render(request, template, {})
+        all_albums = Album.objects.all()
+        return render(request, template, {'all_albums': all_albums})
+
 
     def post(self, request):
         template = 'playlist/search_page.html'
@@ -143,5 +162,14 @@ class CreateNewAlbum(View):
             print(album_form.errors)
             messages.error(request, 'Ошибка! Попробуйте еще раз')
             return redirect('create album')
+
+
+def get_id_ownalbums(own_albums):
+    own_id = []
+    for album in own_albums:
+        print('*-',album)
+        own_id.append(album.id)
+    return own_id
+
 
 

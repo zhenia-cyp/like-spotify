@@ -27,8 +27,8 @@
 
           <div class="albums" >
             <div class="current-album">
+                 {% for album in all_albums %}
                     <div class="album-left">
-                        {% for album in all_albums %}
                           {% if album.image %}
                            <img height="150px" width="150px" src="{{album.image.url}}" alt="">
                           {% endif %}
@@ -39,13 +39,13 @@
                           <span>{{album.year }}</span>
                            <span>{{album.type}}</span>
                                <span>{{ singer}} </span>
+                          {% endfor %}
                           <span><small><a href="/playlists/album/song/{{album.id}}">загрузить песню</a></small></span>
-                         {% endfor %}
-                        {% endfor %}
                     </div>
+                 {% endfor %}
                 </div>
             </div>
-        </div>
+          </div>
     </section>
     </div>
 

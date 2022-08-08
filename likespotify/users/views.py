@@ -9,6 +9,7 @@ from users.models import Profile
 from playlists.models import Album
 
 
+
 class ProfilePageView(TemplateView):
     """this class leads to the profile page """
     template_name = 'users/profile.html'
