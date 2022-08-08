@@ -19,7 +19,10 @@ class ProfilePageView(TemplateView):
         profile = Profile.objects.get(user=self.request.user)
         context['profile']= profile
         albums = Album.objects.filter(user=self.request.user)
+        share_albums = Album.objects.filter(user=self.request.user).exclude(creator=self.request.user)
+        share_albums_ids = get_albums_ids(share_albums)
         context['albums'] = albums
+        context['share_albums_ids']= share_albums_ids
         return context
 
 
@@ -78,3 +81,9 @@ class RegistrationView(View):
                 return render(request, template, {'reg_form': reg_form})
 
 
+def get_albums_ids(albums):
+    """return albums ids"""
+    own_id = []
+    for album in albums:
+        own_id.append(album.id)
+    return own_id

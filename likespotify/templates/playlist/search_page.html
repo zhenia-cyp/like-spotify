@@ -42,7 +42,7 @@
                           {% endfor %}
                           <span><small><a href="/playlists/album/song/{{album.id}}">загрузить песню</a></small></span>
                           {% if not album.id in own_albums_ids %}
-                            <small class="tosong-link"><a href="/playlist/take/album/{{ album.id }}/">забрать альбом</a></small>
+                            <small class="tosong-link"><a href="/playlists/take/album/{{ album.id }}/">забрать альбом</a></small>
                           {% endif %}
                     </div>
                  {% endfor %}
