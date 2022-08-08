@@ -49,7 +49,9 @@ class SearchPageView(View):
     def get(self, request):
         template = 'playlist/search_page.html'
         all_albums = Album.objects.all()
-        return render(request, template, {'all_albums': all_albums})
+        own_albums = Album.objects.filter(creator=request.user)
+        own_albums_ids = get_id_ownalbums(own_albums)
+        return render(request, template, {'all_albums': all_albums,'own_albums_ids':own_albums_ids})
 
 
     def post(self, request):
@@ -165,9 +167,9 @@ class CreateNewAlbum(View):
 
 
 def get_id_ownalbums(own_albums):
+    """return albums ids"""
     own_id = []
     for album in own_albums:
-        print('*-',album)
         own_id.append(album.id)
     return own_id
 
