@@ -86,4 +86,5 @@ def get_albums_ids(albums):
     own_id = []
     for album in albums:
         own_id.append(album.id)
+        print(' own_id: ', own_id)
     return own_id

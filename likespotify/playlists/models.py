@@ -23,7 +23,7 @@ class Album(models.Model):
     quantity = models.CharField('количество треков',max_length=150,null=True, blank=True)
     year = models.CharField('год создания',max_length=150, null=True, blank=True,)
     user = models.ManyToManyField(User,verbose_name='альбом юзера',blank=True)
-    singer = models.ManyToManyField(Singer,verbose_name='исполнитель',blank=True)
+    singer = models.ManyToManyField(Singer,verbose_name='исполнитель')
     creator = models.ForeignKey(User,related_name ='acreator',on_delete=models.CASCADE)
 
     def __str__(self):

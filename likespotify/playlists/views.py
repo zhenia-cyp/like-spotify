@@ -104,14 +104,14 @@ class SingerToSongViews(View):
     def get(self,request):
         template = 'playlist/singer.html'
         singer_form = SingerForm()
+        print('request ::: ',request)
         return render(request,template,{'singerform':singer_form})
 
     def post(self, request,):
         singer_form = SingerForm(request.POST)
         if singer_form.is_valid():
-            print('singerform')
             singer_form.save()
-            return redirect('/playlist/album/song/')
+            return redirect('create album')
         else:
             print(singer_form.errors)
             return redirect('create album')
