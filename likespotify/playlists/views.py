@@ -104,7 +104,6 @@ class SingerToSongViews(View):
     def get(self,request):
         template = 'playlist/singer.html'
         singer_form = SingerForm()
-        print('request ::: ',request)
         return render(request,template,{'singerform':singer_form})
 
     def post(self, request,):
