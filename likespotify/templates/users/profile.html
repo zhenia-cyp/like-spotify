@@ -37,6 +37,13 @@
                           {% if album.image %}
                            <img height="150px" width="150px" src="{{album.image.url}}" alt="">
                           {% endif %}
+                          {% if album.id in share_albums_ids %}
+                                    <span><small>creator:{{album.creator}}</small></span>
+                             {% endif %}
+                        {% if not album.id in share_albums_ids %}
+                                <span><small><a href="/playlists/edit/album/{{album.id}}/">редактировать</a></small></span>
+
+                             {% endif %}
                     </div>
                     <div class="album-right">
                         <span class="album-right-title"><a href="/playlists/current/album/{{album.id}}">{{ album.name }} ({{ album.song_set.all|length }})</a></span>
@@ -46,11 +53,12 @@
                                <span>{{ singer}} </span>
                              {% if album.id in share_albums_ids %}
                                     <span style="visibility:hidden" ><small><a href="/playlists/delete/current/album/{{album.id}}/">удалить</a></small></span>
-                                    <span style="visibility:hidden" ><small><a href="/playlists/album/song/{{album.id}}">загрузить песню</a></small></span>
-                             {% else %}
+                                    <span style="visibility:hidden" ><small><a href="/playlists/album/song/{{album.id}}">+ песню</a></small></span>
+                             {% endif %}
+                             {% if not album.id in share_albums_ids %}
                                 <span><small><a href="/playlists/delete/current/album/{{album.id}}/">удалить</a></small></span>
-                                <span><small><a href="/playlists/album/song/{{album.id}}">загрузить песню</a></small></span>
-                        {% endif %}
+                                <span><small><a href="/playlists/album/song/{{album.id}}">+ песню</a></small></span>
+                             {% endif %}
 <!--                          <span><small><a href="/playlists/take/album/{{album.id}}/">забрать альбом</a></small></span>-->
                          {% endfor %}
                     </div>
@@ -61,7 +69,7 @@
    </div>
    <div class="footer">
        <div class="container">
-           footer
+           
        </div>
    </div>
 

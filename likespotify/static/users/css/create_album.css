@@ -14,7 +14,9 @@ body{
   background: #00d5c3;
 }
 
-
+.logo>span{
+  display:block;
+}
 .container{
     width: 1200px;
     margin:  0 auto;

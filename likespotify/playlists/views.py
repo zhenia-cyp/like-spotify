@@ -7,8 +7,8 @@ from django.shortcuts import redirect, render
 from playlists.models import Album,Song
 from playlists.forms import SingerForm,SongForm
 from django.http import Http404
-
-
+from django.shortcuts import get_object_or_404
+from django.contrib.auth.models import User
 
 class TakeAlbumView(View):
     """take another user's album"""
@@ -69,15 +69,41 @@ class SearchPageView(View):
 
 class EditAlbumView(View):
     """edit album"""
-    def post(self,request):
-        album_form = AlbumForm(request.POST)
-        if album_form.is_valid():
-            album_form.save()
 
+    def get_object(self, *args, **kwargs):
+        pk = self.kwargs.get('pk')
+        try:
+            return Album.objects.get(id=pk)
+        except Album.DoesNotExist:
+            raise Http404
+
+    def get(self, *args, **kwargs):
+        pk = self.kwargs.get('pk')
+        current_album = self.get_object(pk)
+        albumform = AlbumForm(instance=current_album)
+        return render(self.request,'playlist/edit_album.html',{'albumform': albumform,'current_album':current_album})
+
+
+    def post(self,request,*args, **kwargs):
+        pk = self.kwargs.get('pk')
+        album = get_object_or_404(Album,id=pk)
+        albumform = AlbumForm(request.POST,request.FILES)
+        print('request.FILES',request.FILES['image'])
+        if albumform.is_valid():
+            albumform.save(commit=False)
+            creator = get_object_or_404(User, id=request.POST['creator'])
+            album.id=pk
+            album.name=request.POST['name']
+            album.image = request.FILES['image']
+            album.type=request.POST['type']
+            album.year=request.POST['year']
+            album.singer.add(request.POST['singer'])
+            album.user.add(request.POST['user'])
+            album.creator = creator
+            album.save()
             return redirect('profile')
         else:
-            print(album_form.errors)
-            messages.error(request, 'Ошибка! Попробуйте еще раз')
+            print(albumform.errors)
             return redirect('create album')
 
 

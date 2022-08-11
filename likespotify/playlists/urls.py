@@ -1,7 +1,7 @@
 
 from django.urls import path
 from playlists.views import CreateNewAlbum,LoadSongUseAlbumViews,DeleteAlbumView,TakeAlbumView
-from playlists.views import SingerToSongViews,CurrentAlbumView,SearchPageView,AlbumPageView
+from playlists.views import SingerToSongViews,CurrentAlbumView,SearchPageView,AlbumPageView,EditAlbumView
 
 
 urlpatterns = [
@@ -12,5 +12,6 @@ urlpatterns = [
     path("singer/",SingerToSongViews.as_view()),
     path("delete/current/album/<int:pk>/",DeleteAlbumView.as_view()),
     path("search/", SearchPageView.as_view(), name='search page'),
-    path("take/album/<int:pk>/",TakeAlbumView.as_view())
+    path("take/album/<int:pk>/",TakeAlbumView.as_view()),
+    path("edit/album/<int:pk>/",EditAlbumView.as_view())
 ]
