@@ -7,6 +7,15 @@ from users.forms import UserForm, LoginForm
 from django.contrib.auth import authenticate, login
 from users.models import Profile
 from playlists.models import Album
+from django.contrib.auth import logout
+
+
+
+class LogOutView(View):
+    """log out class"""
+    def get(self, request):
+        logout(request)
+        return redirect('home')
 
 
 

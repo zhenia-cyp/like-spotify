@@ -10,7 +10,7 @@
     {% if user.is_authenticated %}
     <div class="header">
         <div class="container">
-            <div class="auth"><p><a href="">Log Out</a></p>
+            <div class="auth"><p><a href="/users/logout/">Log Out</a></p>
             </div>
             <p>Добро пожаловать: {{ user.username }}</p>
         </div>
@@ -20,7 +20,7 @@
        <div class="container">
             <div class="side-bar" >
                 <ul class="side-bar-menu">
-                    <li><a href="#">Главная</a></li>
+                    <li><a href="/playlists/home/">Главная</a></li>
                     <li><a href="/playlists/page/album/">создать альбом</a></li>
                      <li><a href="/playlists/search/">поиск</a></li>
 <!--                    <li><a href="#"></a></li>-->
@@ -57,7 +57,7 @@
                              {% endif %}
                              {% if not album.id in share_albums_ids %}
                                 <span><small><a href="/playlists/delete/current/album/{{album.id}}/">удалить</a></small></span>
-                                <span><small><a href="/playlists/album/song/{{album.id}}">+ песню</a></small></span>
+                                <span><a href="/playlists/album/song/{{album.id}}"><span>+</span></a></span>
                              {% endif %}
 <!--                          <span><small><a href="/playlists/take/album/{{album.id}}/">забрать альбом</a></small></span>-->
                          {% endfor %}
@@ -69,7 +69,7 @@
    </div>
    <div class="footer">
        <div class="container">
-           
+
        </div>
    </div>
 

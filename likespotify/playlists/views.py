@@ -9,6 +9,14 @@ from playlists.forms import SingerForm,SongForm
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
+from django.views.generic.base import TemplateView
+
+
+
+class HomePage(TemplateView):
+    template_name = 'playlist/home.html'
+
+
 
 class TakeAlbumView(View):
     """take another user's album"""
@@ -191,8 +199,9 @@ class CreateNewAlbum(View):
             return redirect('create album')
 
 
+
 def get_id_ownalbums(own_albums):
-    """return albums ids"""
+    """function return albums ids"""
     own_id = []
     for album in own_albums:
         own_id.append(album.id)
