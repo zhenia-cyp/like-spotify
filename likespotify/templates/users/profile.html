@@ -39,6 +39,9 @@
                           {% endif %}
                           {% if album.id in share_albums_ids %}
                                     <span><small>creator:{{album.creator}}</small></span>
+                                    {% if album in added_albums and not album.creator == user %}
+                                       <span><a href="/playlists/break/added/album/{{album.id}}/" title="delete added album">x</a></span>
+                                   {% endif %}
                              {% endif %}
                         {% if not album.id in share_albums_ids %}
                                 <span><small><a href="/playlists/edit/album/{{album.id}}/">редактировать</a></small></span>

@@ -1,6 +1,11 @@
+body{
+ font-family: Verdana;
+}
+
 * {
    box-sizing: border-box;
-}
+ }
+
 .header {
   height: 65px;
   width: 1200px;
@@ -16,11 +21,13 @@
 }
 
 .music {
- margin-top: 100px;
+ display: block;
+ margin: 100px; 0;
 }
 
 .music-item {
   margin-bottom: 25px;
+
 }
 
 .song{

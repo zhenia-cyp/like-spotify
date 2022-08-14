@@ -32,6 +32,8 @@ class ProfilePageView(TemplateView):
         share_albums_ids = get_albums_ids(share_albums)
         context['albums'] = albums
         context['share_albums_ids']= share_albums_ids
+        added_albums = Album.objects.filter(user=self.request.user)
+        context['added_albums']=added_albums
         return context
 
 

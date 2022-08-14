@@ -59,7 +59,9 @@ class SearchPageView(View):
         all_albums = Album.objects.all()
         own_albums = Album.objects.filter(creator=request.user)
         own_albums_ids = get_id_ownalbums(own_albums)
-        return render(request, template, {'all_albums': all_albums,'own_albums_ids':own_albums_ids})
+        added_albums = Album.objects.filter(user=request.user)
+        print('added_albums:',added_albums)
+        return render(request, template, {'all_albums': all_albums,'own_albums_ids':own_albums_ids,'added_albums':added_albums})
 
 
     def post(self, request):
@@ -77,7 +79,6 @@ class SearchPageView(View):
 
 class EditAlbumView(View):
     """edit album"""
-
     def get_object(self, *args, **kwargs):
         pk = self.kwargs.get('pk')
         try:
@@ -91,12 +92,10 @@ class EditAlbumView(View):
         albumform = AlbumForm(instance=current_album)
         return render(self.request,'playlist/edit_album.html',{'albumform': albumform,'current_album':current_album})
 
-
     def post(self,request,*args, **kwargs):
         pk = self.kwargs.get('pk')
         album = get_object_or_404(Album,id=pk)
         albumform = AlbumForm(request.POST,request.FILES)
-        print('request.FILES',request.FILES['image'])
         if albumform.is_valid():
             albumform.save(commit=False)
             creator = get_object_or_404(User, id=request.POST['creator'])
@@ -125,9 +124,6 @@ class CurrentAlbumView(DetailView):
         context = super().get_context_data(**kwargs)
         current_album = Album.objects.get(id=self.kwargs.get('pk'))
         query_set = current_album.song_set.all()
-        print('songs ', query_set)
-        print('current_album  ', current_album)
-        print('current_album  ', current_album.image)
         context['query_set'] = query_set
         return context
 
@@ -161,10 +157,8 @@ class LoadSongUseAlbumViews(View):
 
     def post(self, request,pk):
         song_form = SongForm(request.POST,request.FILES)
-        print('post:::',request.POST)
         if song_form.is_valid():
             song_form.save()
-            print('*', )
             return redirect('profile')
         else:
             print('**',song_form.errors)
@@ -191,12 +185,19 @@ class CreateNewAlbum(View):
         album_form = AlbumForm(request.POST,request.FILES)
         if album_form.is_valid():
             album_form.save()
-            print('_____', request.FILES)
             return redirect('profile')
         else:
             print(album_form.errors)
             messages.error(request, 'Ошибка! Попробуйте еще раз')
             return redirect('create album')
+
+
+class BreakAddedAlbum(DetailView):
+    """this class removes a user from the added album"""
+    def get(self,request, *args, **kwargs):
+        album = get_object_or_404(Album, id=self.kwargs.get('pk'))
+        album.user.remove(self.request.user)
+        return redirect('profile')
 
 
 

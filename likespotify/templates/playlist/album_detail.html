@@ -15,15 +15,22 @@
             <div class="auth"><p><a href="">Log Out</a></p>
             </div>
             <p>Добро пожаловать: {{ user.username }}</p>
+
+        </div>
+
+    </div>
+
+<div class="main">
+    <div class="container">
         <div class="music">
             {% for song in query_set %}
 
             <div class="song">
                  <div class="counter">
-                     {{ forloop.counter }}.
+                     <small>{{ forloop.counter }}.</small>
                  </div>
                 <div class="audio">
-                    <span> {{ song.name }}</span>
+                    <span> <small>{{ song.name }}</small></span>
                     <audio class="music-item" controls>
                         <source src="{{ song.song.url }}" type="audio/mpeg">
                     </audio>
@@ -32,8 +39,8 @@
 
             {% endfor %}
         </div>
-        </div>
     </div>
+</div>
  {% endif %}
 </body>
 </html>

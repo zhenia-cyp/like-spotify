@@ -37,6 +37,7 @@
                            <img height="150px" width="150px" src="{{album.image.url}}" alt="">
                           {% endif %}
                             <span><small>creator: {{album.creator}}</small></span>
+
                     </div>
                     <div class="album-right">
                         <span class="album-right-title"><a href="/playlists/current/album/{{album.id}}">{{ album.name }} ({{ album.song_set.all|length }})</a></span>
@@ -46,7 +47,7 @@
                                <span>{{ singer}} </span>
                           {% endfor %}
 
-                          {% if not album.id in own_albums_ids %}
+                          {% if not album in added_albums %}
                             <small class="tosong-link"><a href="/playlists/take/album/{{ album.id }}/">забрать альбом</a></small>
                           {% endif %}
 
