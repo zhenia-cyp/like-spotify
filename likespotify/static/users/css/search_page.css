@@ -20,8 +20,26 @@ body{
     display: flex;
     justify-content: space-around;
 }
+
+.logo {
+  padding-top: 10px;
+}
+
+.logo > span {
+  display: block;
+}
+
 .main {
  margin-top:40px;
+}
+
+.side-bar{
+   margin-right: 15px;
+}
+
+.side-bar-menu > li {
+   list-style:none;
+   margin-bottom: 10px;
 }
 
 section{
@@ -56,26 +74,38 @@ button:hover {
 }
 
 .albums{
-    margin: 55px 0;
+    margin-top:60px;
+    display: flex;
+    justify-content: center;
 
 
 }
 .current-album {
+    width:60%;
     display: flex;
-    margin-left: 16px;
+    flex-wrap:wrap;
 }
 
 .album-right {
-    margin: 0 15px;
+    margin-left: 10px;
+    margin-right: 25px;
 }
 
-.album-right span {
+.album-right>span {
     display:block;
-    margin-bottom: 5px;
+
 }
 
 .album-right-title{
    padding-bottom: 5px;
+}
+
+.album-left{
+     margin-bottom: 50px;
+}
+
+.album-left > span {
+    display:block;
 }
 
 

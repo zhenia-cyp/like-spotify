@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static '/users/css/search_page.css' %}">
     <title>Likespotify</title>
@@ -12,6 +13,10 @@
 
 <div class="header">
     <div class="container">
+        <div class="logo">
+                <span>Like</span>
+                <span>spotify</span>
+             </div>
         <div class="auth"><p><a href="">Log Out</a></p>
             </div>
             <p>Добро пожаловать: {{ user.username }}</p>
@@ -20,6 +25,16 @@
 </div>
 <div class="main">
     <div class="container">
+        <div class="side-bar" >
+                <ul class="side-bar-menu">
+                    <li><a href="/playlists/home/">Главная</a></li>
+                    <li><a href="/playlists/page/album/">создать альбом</a></li>
+                     <li><a href="/playlists/search/">поиск</a></li>
+<!--                    <li><a href="#"></a></li>-->
+<!--                    <li><a href="#"></a></li>-->
+<!--                    <li><a href="#"></a></li>-->
+               </ul>
+            </div>
 
         <section>
            <div class="form">

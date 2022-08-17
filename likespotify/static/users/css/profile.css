@@ -20,6 +20,19 @@ body{
     display: flex;
     justify-content: space-around;
 }
+
+.logo {
+  padding-top: 10px;
+}
+
+.logo > span> a {
+  display: block;
+  font-family: Georgia;
+  color: white;
+  font-weight: 700;
+  font-size: 19px;
+}
+
 .main {
  margin-top:20px;
 }
@@ -28,21 +41,26 @@ body{
    list-style:none;
    margin-bottom: 10px;
 }
-.albums{
-    margin: 15px 0;
 
+.albums{
+     margin-top:60px;
+     display: flex;
+     justify-content: center;
 }
-.current-album {
+
+.current-album{
+    width:60%;
     display: flex;
+    flex-wrap:wrap;
 }
 
 .album-left {
-   width: 150px;
-   height: 150px;
-}
+
+   margin-bottom:50px;
+   }
 
 .album-right {
-    margin: 0 15px;
+    margin-left: 10px;
     margin-right: 20px;
 }
 
@@ -55,4 +73,35 @@ body{
    padding-bottom: 5px;
 }
 
+.album-left > span {
+    display:block;
+}
+.album-right-down {
+   display: flex;
+}
 
+/*
+bradcrambs
+*/
+ul.breadcrumb {
+  padding: 10px 16px;
+  list-style: none;
+  background-color: #eee;
+}
+ul.breadcrumb li {
+  display: inline;
+  font-size: 18px;
+}
+ul.breadcrumb li+li:before {
+  padding: 8px;
+  color: black;
+  content: "/\00a0";
+}
+ul.breadcrumb li a {
+  color: #0275d8;
+  text-decoration: none;
+}
+ul.breadcrumb li a:hover {
+  color: #01447e;
+  text-decoration: underline;
+}

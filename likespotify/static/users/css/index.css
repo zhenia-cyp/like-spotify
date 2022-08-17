@@ -10,13 +10,22 @@
   background: #00d5c3;
 }
 
-
 .container{
     width: 1200px;
     margin:  0 auto;
     display: flex;
     justify-content: space-around;
 }
+
+.logo {
+  padding-top: 10px;
+}
+
+.logo > span {
+  display: block;
+}
+
+
 .main {
  margin-top:55px;
 }

@@ -158,11 +158,12 @@ class LoadSongUseAlbumViews(View):
     def post(self, request,pk):
         song_form = SongForm(request.POST,request.FILES)
         if song_form.is_valid():
+            print('*')
             song_form.save()
             return redirect('profile')
         else:
             print('**',song_form.errors)
-            return redirect('create album')
+            return redirect('load album song')
 
 
 

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'users/css/singer.css' %}">
 
@@ -11,7 +12,11 @@
 {% if user.is_authenticated %}
     <div class="header">
         <div class="container">
-            <div class="auth"><p><a href="">Log Out</a></p>
+            <div class="logo">
+                <span>Like</span>
+                <span>spotify</span>
+             </div>
+            <div class="auth"><p><a href="">Log out</a></p>
        </div>
             <p>Добро пожаловать: {{ user.username }}</p>
 

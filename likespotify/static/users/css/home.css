@@ -20,6 +20,22 @@ body{
     display: flex;
     justify-content: space-around;
 }
+
+.logo {
+  padding-top: 10px;
+}
+
+.logo > span{
+  display: block;
+}
+
+.logo > span> a {
+  font-family: Georgia;
+  color: white;
+  font-weight: 700;
+  font-size: 19px;
+}
+
 .main {
  margin-top:20px;
 }

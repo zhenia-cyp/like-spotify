@@ -18,6 +18,15 @@ body{
     display: flex;
     justify-content: space-around;
 }
+
+.logo {
+  padding-top: 10px;
+}
+
+.logo > span {
+  display: block;
+}
+
 .form {
   margin-top: 35px;
 }

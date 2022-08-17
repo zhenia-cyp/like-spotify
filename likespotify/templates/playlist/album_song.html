@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static '/users/css/album_song.css' %}">
     <title>Title</title>
@@ -10,6 +11,10 @@
      {% if user.is_authenticated %}
       <div class="header">
          <div class="container">
+             <div class="logo">
+                <span>Like</span>
+                <span>spotify</span>
+             </div>
             <div class="auth"><p><a href="">Log Out</a></p>
             </div>
             <p>Добро пожаловать: {{ user.username }}</p>
@@ -30,7 +35,7 @@
                 <div>
                     <span>исполнитель:</span>
                     <span>выберите исполнителя из списка</span>
-                    <span>или оставьте поле пустым</span>
+                    <span>или нажмите "добавить исполнителя"</span>
                     <span> {{ songform.singer }}</span>
                     <a href="/playlists/singer/">добавить исполнителя</a>
                 </div>

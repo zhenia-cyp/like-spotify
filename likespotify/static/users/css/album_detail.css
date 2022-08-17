@@ -20,6 +20,14 @@ body{
     justify-content: space-around;
 }
 
+.logo {
+  padding-top: 10px;
+}
+
+.logo > span {
+  display: block;
+}
+
 .music {
  display: block;
  margin: 100px; 0;

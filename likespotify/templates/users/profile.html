@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static '/users/css/profile.css' %}">
     <title>Title</title>
@@ -10,13 +11,18 @@
     {% if user.is_authenticated %}
     <div class="header">
         <div class="container">
-            <div class="auth"><p><a href="/users/logout/">Log Out</a></p>
-            </div>
+            <div class="logo">
+                <span><a href="{% url 'home' %}">Like</a></span>
+                <span><a href="{% url 'home' %}">spotify</a></span>
+             </div>
+            <div class="auth"><p><a href="/users/logout/">Log out</a></p></div>
+
             <p>Добро пожаловать: {{ user.username }}</p>
         </div>
 
     </div>
    <div class="main">
+
        <div class="container">
             <div class="side-bar" >
                 <ul class="side-bar-menu">
@@ -33,14 +39,13 @@
                 <div class="current-album">
                      {% for album in albums %}
                     <div class="album-left">
-
                           {% if album.image %}
                            <img height="150px" width="150px" src="{{album.image.url}}" alt="">
                           {% endif %}
                           {% if album.id in share_albums_ids %}
                                     <span><small>creator:{{album.creator}}</small></span>
                                     {% if album in added_albums and not album.creator == user %}
-                                       <span><a href="/playlists/break/added/album/{{album.id}}/" title="delete added album">x</a></span>
+                                       <span class="delete-added-album"><a href="/playlists/break/added/album/{{album.id}}/" title="delete added album">x</a></span>
                                    {% endif %}
                              {% endif %}
                         {% if not album.id in share_albums_ids %}
@@ -56,11 +61,13 @@
                                <span>{{ singer}} </span>
                              {% if album.id in share_albums_ids %}
                                     <span style="visibility:hidden" ><small><a href="/playlists/delete/current/album/{{album.id}}/">удалить</a></small></span>
-                                    <span style="visibility:hidden" ><small><a href="/playlists/album/song/{{album.id}}">+ песню</a></small></span>
+                                    <span style="visibility:hidden" ><small><a href="/playlists/album/song/{{album.id}}" title="add new song">+</a></small></span>
                              {% endif %}
                              {% if not album.id in share_albums_ids %}
-                                <span><small><a href="/playlists/delete/current/album/{{album.id}}/">удалить</a></small></span>
-                                <span><a href="/playlists/album/song/{{album.id}}"><span>+</span></a></span>
+                                <span class="album-right-down">
+                                    <span><small><a href="/playlists/delete/current/album/{{album.id}}/">удалить</a></small></span>
+                                    <span><a href="/playlists/album/song/{{album.id}}" title="add new song"><span>+</span></a></span>
+                                </span>
                              {% endif %}
 <!--                          <span><small><a href="/playlists/take/album/{{album.id}}/">забрать альбом</a></small></span>-->
                          {% endfor %}
