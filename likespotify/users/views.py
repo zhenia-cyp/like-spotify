@@ -23,19 +23,6 @@ class ProfilePageView(TemplateView):
     """this class leads to the profile page """
     template_name = 'users/profile.html'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        profile = Profile.objects.get(user=self.request.user)
-        context['profile']= profile
-        albums = Album.objects.filter(user=self.request.user)
-        share_albums = Album.objects.filter(user=self.request.user).exclude(creator=self.request.user)
-        share_albums_ids = get_albums_ids(share_albums)
-        context['albums'] = albums
-        context['share_albums_ids']= share_albums_ids
-        added_albums = Album.objects.filter(user=self.request.user)
-        context['added_albums']=added_albums
-        return context
-
 
 
 class LoginUserView(View):
@@ -50,7 +37,7 @@ class LoginUserView(View):
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    return redirect('profile')
+                    return redirect('home')
                 else:
                     print('*',loginform.errors)
                     return redirect('authorizpage')
@@ -92,10 +79,3 @@ class RegistrationView(View):
                 return render(request, template, {'reg_form': reg_form})
 
 
-def get_albums_ids(albums):
-    """return albums ids"""
-    own_id = []
-    for album in albums:
-        own_id.append(album.id)
-        print(' own_id: ', own_id)
-    return own_id

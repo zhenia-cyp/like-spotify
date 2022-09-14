@@ -1,11 +1,11 @@
 import datetime
-from django.views.generic import DetailView
+from django.views.generic import DetailView, FormView
 from django.views.generic.base import TemplateView, View
 from playlists.forms import  SongForm,AlbumForm
 from django.contrib import messages
 from django.shortcuts import redirect, render
 from playlists.models import Album,Song
-from playlists.forms import SingerForm,SongForm
+from playlists.forms import SingerForm,SongForm,CategoryForm
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
@@ -13,13 +13,43 @@ from django.views.generic.base import TemplateView
 
 
 
-class HomePage(TemplateView):
-    template_name = 'playlist/home.html'
+class SongDeleteView(View):
+   """class removes songs from an album"""
+   def get_object(self, *args, **kwargs):
+       pk = self.kwargs.get('pk')
+       try:
+           return Song.objects.get(id=pk)
+       except Song.DoesNotExist:
+           raise Http404
+
+   def get(self, *args, **kwargs):
+       albumid = self.request.GET['n']
+       pk = self.kwargs.get('pk')
+       obj = self.get_object(pk)
+       obj.delete()
+       return redirect(f'/playlists/current/album/{albumid}/')
+
+
+
+class CategoryPage(FormView):
+    """this class creates album's category"""
+    template_name = 'playlist/category.html'
+    form_class = CategoryForm
+    success_url = '/playlists/page/album/'
+
+    def get(self,request,*args, **kwargs):
+        categoryform = CategoryForm()
+        return render(request,'playlist/category.html',{'categoryform': categoryform})
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
+
 
 
 
 class TakeAlbumView(View):
-    """take another user's album"""
+    """class takes another user's album"""
     def get_object(self,request,*args, **kwargs):
         pk = self.kwargs.get('pk')
         try:
@@ -47,8 +77,11 @@ class DeleteAlbumView(DetailView):
     def get(self, *args, **kwargs):
         pk = self.kwargs.get('pk')
         obj = self.get_object(pk)
+        if obj.image:
+            obj.image.delete()
         obj.delete()
-        return redirect('profile')
+
+        return redirect('home')
 
 
 
@@ -108,7 +141,7 @@ class EditAlbumView(View):
             album.user.add(request.POST['user'])
             album.creator = creator
             album.save()
-            return redirect('profile')
+            return redirect('home')
         else:
             print(albumform.errors)
             return redirect('create album')
@@ -125,7 +158,11 @@ class CurrentAlbumView(DetailView):
         current_album = Album.objects.get(id=self.kwargs.get('pk'))
         query_set = current_album.song_set.all()
         context['query_set'] = query_set
+        context['albumid']= current_album.id
+        context['creator']= current_album.creator.id
+        context['nick']= self.request.user.id
         return context
+
 
 
 
@@ -160,7 +197,7 @@ class LoadSongUseAlbumViews(View):
         if song_form.is_valid():
             print('*')
             song_form.save()
-            return redirect('profile')
+            return redirect('home')
         else:
             print('**',song_form.errors)
             return redirect('load album song')
@@ -186,7 +223,7 @@ class CreateNewAlbum(View):
         album_form = AlbumForm(request.POST,request.FILES)
         if album_form.is_valid():
             album_form.save()
-            return redirect('profile')
+            return redirect('home')
         else:
             print(album_form.errors)
             messages.error(request, 'Ошибка! Попробуйте еще раз')
@@ -198,8 +235,58 @@ class BreakAddedAlbum(DetailView):
     def get(self,request, *args, **kwargs):
         album = get_object_or_404(Album, id=self.kwargs.get('pk'))
         album.user.remove(self.request.user)
-        return redirect('profile')
+        return redirect('home')
 
+
+
+class HomePageView(TemplateView):
+    """this class leads to the profile page """
+    template_name = 'playlist/home.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if 'key' in self.request.GET and self.request.GET['key']=='my':
+            context['albums'] = Album.objects.filter(creator=self.request.user)
+            share_albums = Album.objects.filter(user=self.request.user).exclude(creator=self.request.user)
+            share_albums_ids = a_ids(albums=share_albums)
+            context['share_albums_ids'] = share_albums_ids
+            added_albums = Album.objects.filter(user=self.request.user)
+            context['added_albums'] = added_albums
+            return context
+
+        if 'key' in self.request.GET and self.request.GET['key']=='add':
+            context['albums'] = Album.objects.filter(user=self.request.user).exclude(creator=self.request.user)
+            share_albums = Album.objects.filter(user=self.request.user).exclude(creator=self.request.user)
+            share_albums_ids = a_ids(albums=share_albums)
+            context['share_albums_ids'] = share_albums_ids
+            added_albums = Album.objects.filter(user=self.request.user)
+            context['added_albums'] = added_albums
+            return context
+
+        if len(self.request.GET)==0:
+            albums = Album.objects.filter(user=self.request.user)
+            share_albums = Album.objects.filter(user=self.request.user).exclude(creator=self.request.user)
+            share_albums_ids=a_ids(albums=share_albums)
+            context['albums'] = albums
+            context['share_albums_ids']= share_albums_ids
+            added_albums = Album.objects.filter(user=self.request.user)
+            context['added_albums']=added_albums
+            return context
+
+
+
+class GetAlbumsIds():
+    """return albums ids"""
+    def __init__(self):
+        self.ids = []
+
+    def __call__(self, *args, **kwargs):
+        albums = kwargs.get('albums')
+        for album in albums:
+            self.ids.append(album.id)
+        return self.ids
+
+a_ids = GetAlbumsIds()
 
 
 def get_id_ownalbums(own_albums):
@@ -208,6 +295,7 @@ def get_id_ownalbums(own_albums):
     for album in own_albums:
         own_id.append(album.id)
     return own_id
+
 
 
 

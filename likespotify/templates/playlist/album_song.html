@@ -1,56 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static '/users/css/album_song.css' %}">
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static '/users/css/album_song.css' %}"
+    />
     <title>Title</title>
-</head>
-<body>
-     {% if user.is_authenticated %}
-      <div class="header">
-         <div class="container">
-             <div class="logo">
-                <span>Like</span>
-                <span>spotify</span>
-             </div>
-            <div class="auth"><p><a href="">Log Out</a></p>
-            </div>
-            <p>Добро пожаловать: {{ user.username }}</p>
+  </head>
+  <body>
+    {% if user.is_authenticated %}
+    <div class="header">
+      <div class="container">
+        <div class="burger"><span></span><span></span><span></span></div>
+        <div class="logo">
+          <span><a href="{% url 'home' %}">Like</a></span>
+          <span><a href="{% url 'home' %}">spotify</a></span>
         </div>
-     </div>
-     <div class="main">
-         <div class="container">
-
-             <div class="form">
-                <form enctype="multipart/form-data" action="/playlists/album/song/{{num}}" method="post" >{% csrf_token %}
-                <div>
-                    <span>название трека:</span>
-                    <span>{{ songform.name }}</span>
-                </div>
-                <div>
-                    <span>{{ songform.song }}</span>
-                </div>
-                <div>
-                    <span>исполнитель:</span>
-                    <span>выберите исполнителя из списка</span>
-                    <span>или нажмите "добавить исполнителя"</span>
-                    <span> {{ songform.singer }}</span>
-                    <a href="/playlists/singer/">добавить исполнителя</a>
-                </div>
-                <div hidden>
-                    {{songform.album}}
-                </div>
-                <button type="submit" class="btn">загрузить</button>
-                </form>
+        <div class="auth">
+          <p><a href="">log out</a></p>
         </div>
+        <p>
+          Добро пожаловать:
+          <a href="">{{ user.username }}</a>
+        </p>
+      </div>
     </div>
-
-             </div>
-         </div>
-     </div>
-     {% endif %}
-
-</body>
+    <div class="main">
+      <div class="container">
+        <div class="form">
+          <form
+            enctype="multipart/form-data"
+            action="/playlists/album/song/{{num}}"
+            method="post"
+          >
+            {% csrf_token %}
+            <div>
+              <span>название трека:</span>
+              <span>{{ songform.name }}</span>
+            </div>
+            <div>
+              <span>{{ songform.song }}</span>
+            </div>
+            <div>
+              <span>исполнитель:</span>
+              <span>выберите исполнителя из списка</span>
+              <span>или нажмите "добавить исполнителя"</span>
+              <span> {{ songform.singer }}</span>
+              <a href="/playlists/singer/">добавить исполнителя</a>
+            </div>
+            <div class="song-text">
+              <span>текст песни:</span>
+              <span>или оставьте поле пустым</span>
+              <span> {{songform.text}}</span>
+            </div>
+            <div hidden>{{songform.album}}</div>
+            <button type="submit" class="btn">загрузить</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    <script>
+      const burger = document.querySelector(".burger");
+      const sideBar = document.querySelector(".side-bar");
+      burger.addEventListener("click", () => {
+        burger.classList.toggle("active");
+        sideBar.classList.toggle("active");
+      });
+    </script>
+  </body>
 </html>

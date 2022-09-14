@@ -1,88 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static '/users/css/profile.css' %}">
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static '/users/css/profile.css' %}"
+    />
     <title>Title</title>
-</head>
-<body>
+  </head>
+  <body>
     {% if user.is_authenticated %}
     <div class="header">
-        <div class="container">
-            <div class="logo">
-                <span><a href="{% url 'home' %}">Like</a></span>
-                <span><a href="{% url 'home' %}">spotify</a></span>
-             </div>
-            <div class="auth"><p><a href="/users/logout/">Log out</a></p></div>
-
-            <p>Добро пожаловать: {{ user.username }}</p>
+      <div class="container">
+        <div class="burger"><span></span><span></span><span></span></div>
+        <div class="logo">
+          <span><a href="{% url 'home' %}">Like</a></span>
+          <span><a href="{% url 'home' %}">spotify</a></span>
         </div>
-
+        <div class="auth">
+          <p><a class="plus" href="/users/logout/">log out</a></p>
+        </div>
+        <p>
+          Добро пожаловать:
+          <a class="plus" href="{% url 'profile' %}">{{ user.username }}</a>
+        </p>
+      </div>
     </div>
-   <div class="main">
 
-       <div class="container">
-            <div class="side-bar" >
-                <ul class="side-bar-menu">
-                    <li><a href="/playlists/home/">Главная</a></li>
-                    <li><a href="/playlists/page/album/">создать альбом</a></li>
-                     <li><a href="/playlists/search/">поиск</a></li>
-<!--                    <li><a href="#"></a></li>-->
-<!--                    <li><a href="#"></a></li>-->
-<!--                    <li><a href="#"></a></li>-->
-               </ul>
-            </div>
+    <div class="main">
 
-           <div class="albums" >
-                <div class="current-album">
-                     {% for album in albums %}
-                    <div class="album-left">
-                          {% if album.image %}
-                           <img height="150px" width="150px" src="{{album.image.url}}" alt="">
-                          {% endif %}
-                          {% if album.id in share_albums_ids %}
-                                    <span><small>creator:{{album.creator}}</small></span>
-                                    {% if album in added_albums and not album.creator == user %}
-                                       <span class="delete-added-album"><a href="/playlists/break/added/album/{{album.id}}/" title="delete added album">x</a></span>
-                                   {% endif %}
-                             {% endif %}
-                        {% if not album.id in share_albums_ids %}
-                                <span><small><a href="/playlists/edit/album/{{album.id}}/">редактировать</a></small></span>
 
-                             {% endif %}
-                    </div>
-                    <div class="album-right">
-                        <span class="album-right-title"><a href="/playlists/current/album/{{album.id}}">{{ album.name }} ({{ album.song_set.all|length }})</a></span>
-                         {% for singer in album.singer.all %}
-                          <span>{{album.year }}</span>
-                           <span>{{album.type}}</span>
-                               <span>{{ singer}} </span>
-                             {% if album.id in share_albums_ids %}
-                                    <span style="visibility:hidden" ><small><a href="/playlists/delete/current/album/{{album.id}}/">удалить</a></small></span>
-                                    <span style="visibility:hidden" ><small><a href="/playlists/album/song/{{album.id}}" title="add new song">+</a></small></span>
-                             {% endif %}
-                             {% if not album.id in share_albums_ids %}
-                                <span class="album-right-down">
-                                    <span><small><a href="/playlists/delete/current/album/{{album.id}}/">удалить</a></small></span>
-                                    <span><a href="/playlists/album/song/{{album.id}}" title="add new song"><span>+</span></a></span>
-                                </span>
-                             {% endif %}
-<!--                          <span><small><a href="/playlists/take/album/{{album.id}}/">забрать альбом</a></small></span>-->
-                         {% endfor %}
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-   </div>
-   <div class="footer">
-       <div class="container">
+      <div class="container">
 
-       </div>
-   </div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="container"></div>
+    </div>
 
-   {% endif %}
-</body>
+    {% endif %}
+    <script>
+      const burger = document.querySelector(".burger");
+      const sideBar = document.querySelector(".side-bar");
+      burger.addEventListener("click", () => {
+        burger.classList.toggle("active");
+        sideBar.classList.toggle("active");
+      });
+    </script>
+  </body>
 </html>

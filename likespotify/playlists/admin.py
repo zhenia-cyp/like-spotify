@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from playlists.models import Song, Album
+from playlists.models import Song, Album,Category
 
 
 class SongAdmin(admin.ModelAdmin):
@@ -13,3 +13,8 @@ class AlbumAdmin(admin.ModelAdmin):
     list_display = ('id', 'name',)
 
 admin.site.register(Album,AlbumAdmin)
+
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name')
+
+admin.site.register(Category,CategoryAdmin)

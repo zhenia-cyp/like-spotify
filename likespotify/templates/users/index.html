@@ -1,52 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width">
-     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static '/users/css/index.css' %}">
-
-</head>
-<body>
-     <div class="header">
-        <div class="container">
-             <div class="logo">
-                <span>Like</span>
-                <span>spotify</span>
-             </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    {% load static %}
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static '/users/css/index.css' %}"
+    />
+  </head>
+  <body class="login-page">
+    <div class="header">
+      <div class="container">
+        <div class="burger"><span></span><span></span><span></span></div>
+        <div class="logo">
+          <span><a href="">Like</a></span>
+          <span><a href="">spotify</a></span>
         </div>
+        <div class="auth">
+          <p><a class="plus" href="/users/logout/">log out</a></p>
+        </div>
+        <p>
+          Добро пожаловать!
+          <a class="plus" href="{% url 'profile' %}"></a>
+        </p>
+      </div>
     </div>
 
-     <div class="main">
-         <div class="container">
-             <div class="form">
-                 <form action="" method="post" >{% csrf_token %}
-                     <div class="form-title">Регистрация</div>
+    <div class="main">
+      <div class="container">
+        <div class="form">
+          <form action="" method="post">
+            {% csrf_token %}
+            <div class="form-title">Регистрация</div>
             <div>
-                <span class="title">имя пользователя:</span>
-                <span class="inpt">{{ reg_form.username }}</span>
+              <span class="title"></span>
+              <span class="inpt"></span>
             </div>
             <div>
-                <span class="title">email:</span>
-                <span class="inpt">{{ reg_form.email }}</span>
+              <span class="title">email:</span>
+              <span class="inpt">{{ reg_form.email }}</span>
             </div>
             <div>
-                <span class="title">пароль:</span>
-                <span class="inpt"> {{ reg_form.password1 }}</span>
+              <span class="title">пароль:</span>
+              <span class="inpt">
+                {{ reg_form.password1 }}
+                <span class="show-pass">
+                  <svg
+                    version="1.1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="32"
+                    height="32"
+                    viewBox="0 0 32 32"
+                  >
+                    <title>eye</title>
+                    <path
+                      d="M16 6c-6.979 0-13.028 4.064-16 10 2.972 5.936 9.021 10 16 10s13.027-4.064 16-10c-2.972-5.936-9.021-10-16-10zM23.889 11.303c1.88 1.199 3.473 2.805 4.67 4.697-1.197 1.891-2.79 3.498-4.67 4.697-2.362 1.507-5.090 2.303-7.889 2.303s-5.527-0.796-7.889-2.303c-1.88-1.199-3.473-2.805-4.67-4.697 1.197-1.891 2.79-3.498 4.67-4.697 0.122-0.078 0.246-0.154 0.371-0.228-0.311 0.854-0.482 1.776-0.482 2.737 0 4.418 3.582 8 8 8s8-3.582 8-8c0-0.962-0.17-1.883-0.482-2.737 0.124 0.074 0.248 0.15 0.371 0.228v0zM16 13c0 1.657-1.343 3-3 3s-3-1.343-3-3 1.343-3 3-3 3 1.343 3 3z"
+                    ></path>
+                  </svg>
+                </span>
+              </span>
             </div>
             <div>
-                <span class="title">подтвердите пароль:</span>
-                <span class="inpt"> {{ reg_form.password2 }}</span>
+              <span class="title">подтвердите пароль:</span>
+              <span class="inpt"> {{ reg_form.password2 }}</span>
             </div>
-            <button type="submit" class="btn btn-outline-danger">зарегистрироваться</button>
-        </form>
-
-             </div>
-         </div>
-         <div class="errors"><span>
-             {{ reg_form.errors.as_text }}
-         </span></div>
-     </div>
-
-</body>
+            <button type="submit" class="btn btn-outline-danger">
+              зарегистрироваться
+            </button>
+          </form>
+        </div>
+      </div>
+      <div class="errors"><span> {{ reg_form.errors.as_text }} </span></div>
+    </div>
+    <script>
+      const showPass = document.querySelector(".show-pass");
+      const inputPass = document.querySelector("#id_password1");
+      showPass.addEventListener("click", () => {
+        if (inputPass.getAttribute("type") === "password") {
+          inputPass.setAttribute("type", "text");
+        } else {
+          inputPass.setAttribute("type", "password");
+        }
+        showPass.classList.toggle("active");
+      });
+    </script>
+  </body>
 </html>

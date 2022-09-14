@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'playlists',
     'users',
+    'urlshorter',
 ]
 
 MIDDLEWARE = [

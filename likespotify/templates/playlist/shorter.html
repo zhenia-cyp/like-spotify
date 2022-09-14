@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="shorter.css" />
+    <title>Title</title>
+  </head>
+  <body>
+    <div class="header">
+      <div class="container">
+        <div class="burger"><span></span><span></span><span></span></div>
+        <div class="logo">
+          <span><a href="{% url 'home' %}">Like</a></span>
+          <span><a href="{% url 'home' %}">spotify</a></span>
+        </div>
+        <div class="auth">
+          <p><a class="text plus" href="">log out</a></p>
+        </div>
+        <p>
+          Добро пожаловать:
+          <a class="text plus" href="{% url 'profile' %}"
+            >{{ user.username }}</a
+          >
+        </p>
+      </div>
+    </div>
+
+    <div class="main">
+      <div class="container">
+        <div class="side-bar">
+          <ul class="side-bar-menu">
+            <li><a class="plus" href="/playlists/home/">Главная</a></li>
+            <li>
+              <a class="plus" href="/playlists/page/album/">создать альбом</a>
+            </li>
+            <li><a class="plus" href="/playlists/search/">поиск</a></li>
+            <!--                    <li><a href="#"></a></li>-->
+            <!--                    <li><a href="#"></a></li>-->
+            <!--                    <li><a href="#"></a></li>-->
+          </ul>
+        </div>
+
+        <div class="form">
+          <form action="/shorter/create/link/" method="post">
+            {% csrf_token %}
+            <div>
+              <p></p>
+              <span class="title">чтобы удобней было делиться альбомами</span>
+              <span class="title">вы можете сократить ссылку</span>
+              <span class="title title--link"
+                >например,
+                http://127.0.0.1:8000/playlists/current/album/5/</span
+              >
+              <span class="inpt"><input type="text" name="url" /></span>
+            </div>
+            <button type="submit" class="btn">создать</button>
+          </form>
+        </div>
+
+        <div class="cut-url">
+          <p>cокращенные ссылки:</p>
+          {% for link in user_short_links %}
+          <div class="cut-url-menu">
+            <span><small>количество кликов: {{link.clicks}}</small></span>
+            <a class="plus" href="/{{link.short_url}}/"
+              >{{link.get_short_link}}</a
+            >
+            <span class="del"
+              ><a class="plus" href="/shorter/delete/short/link/{{link.id}}/"
+                ><small>удалить</small></a
+              ></span
+            >
+          </div>
+
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    <script>
+      const burger = document.querySelector(".burger");
+      const sideBar = document.querySelector(".side-bar");
+      burger.addEventListener("click", () => {
+        burger.classList.toggle("active");
+        sideBar.classList.toggle("active");
+      });
+    </script>
+  </body>
+</html>

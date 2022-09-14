@@ -17,11 +17,14 @@ from django.contrib import admin
 from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
+from urlshorter.views import GetRedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('shorter/', include('urlshorter.urls')),
     path('users/', include('users.urls')),
     path('playlists/', include('playlists.urls')),
+    path('<str:shortlink>/', GetRedirectView.as_view())
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

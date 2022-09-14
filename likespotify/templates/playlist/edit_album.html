@@ -1,72 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'users/css/create_album.css' %}">
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'users/css/create_album.css' %}"
+    />
     <title>Likespotify</title>
-</head>
-<body>
-
-{% if user.is_authenticated %}
-  <div class="header">
-
-             <div class="logo">
-                <span>Like</span>
-                <span>spotify</span>
-             </div>
-
-        <div class="container">
-            <div class="auth"><p><a href="">Log Out</a></p>
-            </div>
-            <p>Добро пожаловать: {{ user.username }}</p>
-
+  </head>
+  <body>
+    {% if user.is_authenticated %}
+    <div class="header">
+      <div class="container">
+        <div class="burger"><span></span><span></span><span></span></div>
+        <div class="logo">
+          <span><a href="{% url 'home' %}">Like</a></span>
+          <span><a href="{% url 'home' %}">spotify</a></span>
         </div>
+        <div class="auth">
+          <p><a class="plus" href="/users/logout/">log out</a></p>
+        </div>
+        <p>
+          Добро пожаловать:
+          <a class="plus" href="">{{ user.username }}</a>
+        </p>
+      </div>
     </div>
-
 
     <div class="main">
-        <div class="container">
-            <form class="forma" action="/playlists/edit/album/{{current_album.id}}/" enctype="multipart/form-data" method="post">{% csrf_token %}
-                <div>
-                     <span class="title"> название альбома:</span>
-                     <span class="inpt">{{ albumform.name}}</span>
-                </div>
-                <div hidden>
-                   <span class="inpt"> {{ albumform.type}}</span>
-                </div>
-                <div>
-                     <span class="title">год выпуска:</span>
-                     <span class="inpt">{{ albumform.year }}</span>
-                </div>
-                <div>
-                    <span class="title">фото для альбома:</span>
-                    <span class="title">или оставьте поле пустым</span>
-                    <span class="inpt">{{ albumform.image }}</span>
-                </div>
-                <div>
-                    <span class="title">автор альбома:</span>
-                    <span class="title">выберите из списка</span>
-                    <div class="add-singer">или <a href="/playlists/singer/">добавить исполнителя</a></div>
-                    <span class="inpt">{{ albumform.singer }}</span>
-                </div>
-                <div hidden>
-                    <span class="inpt">{{ albumform.user }}</span>
-                </div>
-                <div hidden>
-                    <span class="inpt">{{ albumform.creator }}</span>
-                </div>
+      <div class="container">
+        <form
+          class="forma"
+          action="/playlists/edit/album/{{current_album.id}}/"
+          enctype="multipart/form-data"
+          method="post"
+        >
+          {% csrf_token %}
+          <div>
+            <span class="title"> название альбома:</span>
+            <span class="inpt">{{ albumform.name}}</span>
+          </div>
+          <div hidden>
+            <span class="inpt"> {{ albumform.type}}</span>
+          </div>
+          <div>
+            <span class="title">год выпуска:</span>
+            <span class="inpt">{{ albumform.year }}</span>
+          </div>
+          <div>
+            <span class="title">фото для альбома:</span>
+            <span class="title">или оставьте поле пустым</span>
+            <span class="inpt">{{ albumform.image }}</span>
+          </div>
+          <div>
+            <span class="title">автор альбома:</span>
+            <span class="title">выберите из списка</span>
+            <div class="add-singer">
+              или <a href="/playlists/singer/">добавить исполнителя</a>
+            </div>
+            <span class="inpt">{{ albumform.singer }}</span>
+          </div>
+          <div hidden>
+            <span class="inpt">{{ albumform.user }}</span>
+          </div>
+          <div hidden>
+            <span class="inpt">{{ albumform.creator }}</span>
+          </div>
 
-                <button type="submit" >cохранить</button>
-            </form>
-            <div class="errors"><span>
-             {{ albumform.errors.as_text }}</span>
-             </div>
-        </div>
+          <button type="submit">cохранить</button>
+        </form>
+        <div class="errors"><span> {{ albumform.errors.as_text }}</span></div>
+      </div>
     </div>
 
-{% endif %}
-
-</body>
+    {% endif %}
+    <script>
+      const burger = document.querySelector(".burger");
+      const sideBar = document.querySelector(".side-bar");
+      burger.addEventListener("click", () => {
+        burger.classList.toggle("active");
+        sideBar.classList.toggle("active");
+      });
+    </script>
+  </body>
 </html>

@@ -1,5 +1,6 @@
 from django import forms
-from playlists.models import Song,Album,Singer
+from playlists.models import Song,Album,Singer,Category
+
 
 
 class SongForm(forms.ModelForm):
@@ -19,4 +20,9 @@ class AlbumForm(forms.ModelForm):
 class SingerForm(forms.ModelForm):
     class Meta:
         model=Singer
+        fields = '__all__'
+
+class CategoryForm(forms.ModelForm):
+    class Meta:
+        model= Category
         fields = '__all__'
