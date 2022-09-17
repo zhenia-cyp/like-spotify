@@ -2,7 +2,7 @@
 from django.urls import path
 from playlists.views import CreateNewAlbum,LoadSongUseAlbumViews,DeleteAlbumView,TakeAlbumView
 from playlists.views import SingerToSongViews,CurrentAlbumView,SearchPageView,AlbumPageView,EditAlbumView
-from playlists.views import HomePageView,BreakAddedAlbum,CategoryPage,SongDeleteView
+from playlists.views import HomePageView,BreakAddedAlbum,CategoryPage,SongDeleteView,UploadSongsView
 
 
 urlpatterns = [
@@ -19,5 +19,6 @@ urlpatterns = [
     path("category/",CategoryPage.as_view(), name='category'),
     path("break/added/album/<int:pk>/",BreakAddedAlbum.as_view(),),
     path("delete/song/<int:pk>/",SongDeleteView.as_view(),name='delete song'),
+    path("upload/songs/<int:pk>/",UploadSongsView.as_view(),name='upload songs'),
 
 ]

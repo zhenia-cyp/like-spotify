@@ -61,8 +61,14 @@
                   height="150px"
                   width="150px"
                   src="{{album.image.url}}"
-                  alt=""
-                />
+                  alt=""/>
+                 {% else %}
+                  <img
+                  height="150px"
+                  width="150px"
+                  src="/media/playlist_images/empty.png"
+                  alt=""/>
+
                 {% endif %} {% if album.id in share_albums_ids %}
                 <div class="test">
                   <span><small>creator:{{album.creator}}</small></span>
@@ -127,14 +133,17 @@
                   <span
                     ><a
                       class="plus"
-                      href="/playlists/album/song/{{album.id}}"
+                      href="/playlists/upload/songs/{{album.id}}/"
                       title="add new song"
                       >+</a
                     ></span
                   >
                 </span>
                 {% endif %}
-                <!--<span><small><a href="/playlists/take/album/{{album.id}}/">забрать альбом</a></small></span>-->
+                <!--
+                "/playlists/album/song/{{album.id}}"
+                <span><small><a href="/playlists/take/album/{{album.id}}/">забрать альбом</a></small></span>
+                -->
                 {% endfor %}
               </div>
             </div>

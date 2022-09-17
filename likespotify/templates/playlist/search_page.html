@@ -66,6 +66,12 @@
                     src="{{album.image.url}}"
                     alt=""
                   />
+                  {% else %}
+                  <img
+                  height="150px"
+                  width="150px"
+                  src="/media/playlist_images/empty.png"
+                  alt=""/>
                   {% endif %}
                   <span><small>creator: {{album.creator}}</small></span>
                 </div>

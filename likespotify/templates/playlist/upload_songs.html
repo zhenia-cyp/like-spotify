@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    {% load static %}
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static '/users/css/album_song.css' %}"
+    />
+    <link rel="stylesheet" href="album_song.css" />
+    <title>Title</title>
+  </head>
+  <body>
+    {% if user.is_authenticated %}
+    <div class="header">
+      <div class="container">
+        <div class="burger"><span></span><span></span><span></span></div>
+        <div class="logo">
+          <span><a href="{% url 'home' %}">Like</a></span>
+          <span><a href="{% url 'home' %}">spotify</a></span>
+        </div>
+        <div class="auth">
+          <p><a href="">log out</a></p>
+        </div>
+        <p>
+          Добро пожаловать:
+          <a href="">{{ user.username }}</a>
+        </p>
+      </div>
+    </div>
+    <div class="main">
+      <div class="container">
+        <div class="form">
+          <p>Выберите песни:</p>
+          <p></p>
+          <form action="/playlists/upload/songs/{{num}}/" method="post">
+            {% csrf_token %}
+            <div class="list-songs">
+              {% for song in songs %}
+              <input
+                id="{{song.id}}"
+                class="checkbox"
+                type="checkbox"
+                value="{{song.id}}"
+                name="checkbox"
+              />
+              <label class="checkbox-label" for="{{song.id}}"
+                >{{song.name}} | {{song.singer}}</label
+              >
+              <hr>
+              {% endfor %}
+            </div>
+            <button class="btn btn--load" type="submit">загрузить</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </body>
+</html>

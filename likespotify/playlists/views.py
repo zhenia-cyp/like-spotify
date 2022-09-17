@@ -13,6 +13,29 @@ from django.views.generic.base import TemplateView
 
 
 
+class UploadSongsView(View):
+    """this class leads to the upload_songs.html"""
+    def get(self, request, *args, **kwargs):
+
+        template = 'playlist/upload_songs.html'
+        pk = self.kwargs.get('pk')
+        album = get_object_or_404(Album, id=self.kwargs.get('pk'))
+        query_set = album.song_set.all()
+        print('all songs',query_set)
+        return render(request, template,{'songs':Song.objects.all(),'num':album.id})
+
+    def post(self,*args, **kwargs):
+        songs = self.request.POST.getlist('checkbox')
+        pk = self.kwargs.get('pk')
+        album = get_object_or_404(Album, id=self.kwargs.get('pk'))
+        for i in songs:
+            album.song_set.add(i)
+        album.save()
+
+        return redirect(f'/playlists/current/album/{pk}')
+
+
+
 class SongDeleteView(View):
    """class removes songs from an album"""
    def get_object(self, *args, **kwargs):
@@ -24,9 +47,10 @@ class SongDeleteView(View):
 
    def get(self, *args, **kwargs):
        albumid = self.request.GET['n']
+       album = get_object_or_404(Album, id=albumid)
        pk = self.kwargs.get('pk')
        obj = self.get_object(pk)
-       obj.delete()
+       album.song_set.remove(obj)
        return redirect(f'/playlists/current/album/{albumid}/')
 
 
@@ -61,7 +85,7 @@ class TakeAlbumView(View):
         pk = self.kwargs.get('pk')
         album = self.get_object(pk)
         album.user.add(request.user)
-        return redirect('profile')
+        return redirect('home')
 
 
 
@@ -230,6 +254,7 @@ class CreateNewAlbum(View):
             return redirect('create album')
 
 
+
 class BreakAddedAlbum(DetailView):
     """this class removes a user from the added album"""
     def get(self,request, *args, **kwargs):
@@ -240,7 +265,7 @@ class BreakAddedAlbum(DetailView):
 
 
 class HomePageView(TemplateView):
-    """this class leads to the profile page """
+    """this class leads to the home page """
     template_name = 'playlist/home.html'
 
     def get_context_data(self, **kwargs):
