@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    {% load static %}
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static '/users/css/album_detail.css' %}"
+    />
+     <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static '/users/css/player.css' %}"
+    />
+
+
+    <title>Title</title>
+  </head>
+  <body>
+    {% if user.is_authenticated %}
+
+    <div class="header">
+      <div class="container">
+        <div class="burger"><span></span><span></span><span></span></div>
+        <div class="logo">
+          <span><a href="{% url 'home' %}">Like</a></span>
+          <span><a href="{% url 'home' %}">spotify</a></span>
+        </div>
+        <div class="auth">
+          <p><a class="text" href="">log out</a></p>
+        </div>
+        <p>
+          Добро пожаловать:
+          <a class="text" href="">{{ user.username }}</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="main">
+      <div class="album-menu">
+        <span>альбомы: </span>
+        <a class="plus" href="/playlists/home/">все</a>
+        <a class="plus" href="/playlists/home/?key=my">мои</a>
+        <a class="plus" href="/playlists/home/?key=add">добавленные</a>
+      </div>
+      <div class="container">
+        <div class="player">
+          <div class="player-head">
+            <p class="current-time">00:00</p>
+            <p class="track-name">Track Name</p>
+            <p class="total-duration">00:00</p>
+          </div>
+          <input
+            class="track-progress"
+            type="range"
+            min="0"
+            max="100"
+            value="0"
+            onchange="seekTo()"
+          />
+          <div class="player-footer">
+            <div class="player-buttons">
+          <span
+            class="track-random icon-shuffle"
+            onclick="randomTrack()"
+          ></span>
+          <span class="track-prev icon-previous" onclick="prevTrack()"></span>
+          <span
+            class="track-play-pause icon-play"
+            onclick="playPauseTrack()"
+          ></span>
+          <span class="track-next icon-next" onclick="nextTrack()"></span>
+          <span
+            class="track-repeat icon-spinner"
+            onclick="repeatTrack()"
+          ></span>
+        </div>
+              <div class="track-volume-wrapper">
+                <span class="icon-volume-low"></span>
+                <input
+            class="track-volume"
+            type="range"
+            min="1"
+            max="100"
+            value="100"
+            onchange="setVolume()"
+          />
+                <span class="icon-volume-high"></span>
+        </div>
+
+      </div>
+
+    </div>
+        <ul class="track-list"></ul>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    <script>
+          let currentTime = document.querySelector(".current-time");
+          let totalDuration = document.querySelector(".total-duration");
+          let trackName = document.querySelector(".track-name");
+
+          let playPauseBtn = document.querySelector(".track-play-pause");
+          let prevBtn = document.querySelector(".track-prev");
+          let nextBtn = document.querySelector(".track-next");
+          let randomBtn = document.querySelector(".track-random");
+          let repeatBtn = document.querySelector(".track-repeat");
+
+          let trackProgress = document.querySelector(".track-progress");
+          let trackVolume = document.querySelector(".track-volume");
+
+          let trackList = document.querySelector(".track-list");
+
+          let currentTrack = document.createElement("audio");
+
+          let trackIndex = 0;
+          let isPlaying = false;
+          let isRandom = false;
+          let updateTimer;
+
+          const musicList={{music_list|safe}};
+          console.log('***',musicList);
+
+          loadTrack(trackIndex);
+
+          function loadTrack(trackIndex) {
+            clearInterval(updateTimer);
+            reset();
+            currentTrack.src = musicList[trackIndex].music;
+            currentTrack.load();
+            trackName.textContent = musicList[trackIndex].name;
+
+            updateTimer = setInterval(setUpdate, 1000);
+
+            currentTrack.addEventListener("ended", nextTrack);
+          }
+
+          function reset() {
+            currentTime.textContent = "00:00";
+            totalDuration.textContent = "00:00";
+            trackProgress.value = 0;
+          }
+
+          function randomTrack() {
+            isRandom ? pauseRandom() : playRandom();
+          }
+
+          function playRandom() {
+            isRandom = true;
+            randomBtn.classList.add("active");
+          }
+
+          function pauseRandom() {
+            isRandom = false;
+            randomBtn.classList.remove("active");
+          }
+
+          function repeatTrack() {
+            let currentIndex = trackIndex;
+            loadTrack(currentIndex);
+            playTrack();
+          }
+
+          function playPauseTrack() {
+            isPlaying ? pauseTrack() : playTrack();
+            toggleActiveClass();
+          }
+
+          function pauseTrack() {
+            currentTrack.pause();
+            isPlaying = false;
+            playPauseBtn.classList.remove("icon-pause");
+            playPauseBtn.classList.add("icon-play");
+          }
+
+          function playTrack() {
+            currentTrack.play();
+            isPlaying = true;
+            playPauseBtn.classList.remove("icon-play");
+            playPauseBtn.classList.add("icon-pause");
+          }
+
+          function nextTrack() {
+            if (trackIndex < musicList.length - 1 && isRandom === false) {
+              trackIndex += 1;
+            } else if (trackIndex < musicList.length - 1 && isRandom === true) {
+              let randomIndex = Math.floor(Math.random() * musicList.length);
+              trackIndex = randomIndex;
+            } else {
+              trackIndex = 0;
+            }
+            loadTrack(trackIndex);
+            playTrack();
+            toggleActiveClass();
+          }
+
+          function prevTrack() {
+            if (trackIndex > 0) {
+              trackIndex -= 1;
+            } else {
+              trackIndex = musicList.length - 1;
+            }
+            loadTrack(trackIndex);
+            playTrack();
+            toggleActiveClass();
+          }
+
+          function seekTo() {
+            let seekto = currentTrack.duration * (trackProgress.value / 100);
+            currentTrack.currentTime = seekto;
+          }
+
+          function setVolume() {
+            currentTrack.volume = trackVolume.value / 100;
+          }
+
+          function setUpdate() {
+            let seekPosition = 0;
+
+            if (!isNaN(currentTrack.duration)) {
+              seekPosition = currentTrack.currentTime * (100 / currentTrack.duration);
+              trackProgress.value = seekPosition;
+
+              let currentMinutes = Math.floor(currentTrack.currentTime / 60);
+              let currentSeconds = Math.floor(
+                currentTrack.currentTime - currentMinutes * 60
+              );
+              let durationMinutes = Math.floor(currentTrack.duration / 60);
+              let durationSeconds = Math.floor(
+                currentTrack.duration - durationMinutes * 60
+              );
+
+              if (currentMinutes < 10) currentMinutes = "0" + currentMinutes;
+              if (currentSeconds < 10) currentSeconds = "0" + currentSeconds;
+              if (durationMinutes < 10) durationMinutes = "0" + durationMinutes;
+              if (durationSeconds < 10) durationSeconds = "0" + durationSeconds;
+
+              currentTime.textContent = `${currentMinutes}:${currentSeconds}`;
+              totalDuration.textContent = `${durationMinutes}:${durationSeconds}`;
+            }
+          }
+
+          function toggleActiveClass() {
+            trackItems.forEach((el) => {
+              el.classList.remove("active");
+            });
+            trackItems[trackIndex].classList.add("active");
+          }
+
+          let musicListLayout = "";
+
+          for (let song of musicList) {
+            musicListLayout += `<li class="track-item">${song.name}</li>`;
+          }
+
+          trackList.insertAdjacentHTML("beforeend", musicListLayout);
+
+          let trackItems = document.querySelectorAll(".track-item");
+
+          trackItems.forEach((item, index) => {
+            item.addEventListener("click", () => {
+              trackName.textContent = musicList[index].name;
+              currentTrack.src = musicList[index].music;
+              trackIndex = index;
+              playTrack();
+
+              trackItems.forEach((el) => {
+                el.classList.remove("active");
+              });
+              item.classList.add("active");
+            });
+          });
+    </script>
+
+  </body>
+</html>

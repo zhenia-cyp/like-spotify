@@ -10,6 +10,7 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from django.views.generic.base import TemplateView
+import json
 
 
 
@@ -175,16 +176,20 @@ class EditAlbumView(View):
 class CurrentAlbumView(DetailView):
     """class to get current album"""
     model = Album
-    template_name = 'playlist/album_detail.html'
+    template_name = 'playlist/album_detail2.html'
 
     def get_context_data(self, **kwargs,):
         context = super().get_context_data(**kwargs)
         current_album = Album.objects.get(id=self.kwargs.get('pk'))
         query_set = current_album.song_set.all()
-        context['query_set'] = query_set
+        # context['query_set'] = query_set
         context['albumid']= current_album.id
         context['creator']= current_album.creator.id
         context['nick']= self.request.user.id
+        qsd = QuerySetToDict(songs=query_set)
+        music_list = qsd.convert()
+        print(type(music_list))
+        context['music_list']=music_list
         return context
 
 
@@ -219,7 +224,6 @@ class LoadSongUseAlbumViews(View):
     def post(self, request,pk):
         song_form = SongForm(request.POST,request.FILES)
         if song_form.is_valid():
-            print('*')
             song_form.save()
             return redirect('home')
         else:
@@ -312,6 +316,24 @@ class GetAlbumsIds():
         return self.ids
 
 a_ids = GetAlbumsIds()
+
+
+class QuerySetToDict():
+    """return music_list"""
+    def __init__(self,songs=None):
+        self.music_list = []
+        self.songs = songs
+
+    def convert(self):
+        if self.songs is not None:
+            for song in self.songs:
+                self.music_list.append({'name': song.name, 'music': song.song.url})
+            return self.music_list
+
+
+
+
+
 
 
 def get_id_ownalbums(own_albums):

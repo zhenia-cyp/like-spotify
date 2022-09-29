@@ -81,6 +81,7 @@ body {
   display: flex;
   justify-content: center;
   margin-top: 50px;
+  margin-bottom: 50px;
 }
 
 .album-menu > span,

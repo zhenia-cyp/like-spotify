@@ -9,6 +9,7 @@
       type="text/css"
       href="{% static '/users/css/album_detail.css' %}"
     />
+
     <title>Title</title>
   </head>
   <body>
@@ -41,7 +42,6 @@
       <div class="container">
         <div class="music">
           {% for song in query_set %}
-
           <div class="song">
             <div class="counter">
               <small>{{ forloop.counter }}.</small>
@@ -63,24 +63,10 @@
               </div>
             </div>
           </div>
-
           {% endfor %}
         </div>
       </div>
     </div>
     {% endif %}
-    <script>
-      const burger = document.querySelector(".burger");
-      const sideBar = document.querySelector(".side-bar");
-      burger.addEventListener("click", () => {
-        burger.classList.toggle("active");
-        sideBar.classList.toggle("active");
-      });
-      function albumID(){
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', '/dpm/?, false);
-        xhr.send();
-      }
-    </script>
   </body>
 </html>
