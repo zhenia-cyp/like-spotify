@@ -20,9 +20,10 @@ from django.conf.urls.static import static
 from urlshorter.views import GetRedirectView
 
 urlpatterns = [
+
+    path('users/', include('users.urls')),
     path('admin/', admin.site.urls),
     path('shorter/', include('urlshorter.urls')),
-    path('users/', include('users.urls')),
     path('playlists/', include('playlists.urls')),
     path('<str:shortlink>/', GetRedirectView.as_view())
 ]

@@ -188,7 +188,6 @@ class CurrentAlbumView(DetailView):
         context['nick']= self.request.user.id
         qsd = QuerySetToDict(songs=query_set)
         music_list = qsd.convert()
-        print(type(music_list))
         context['music_list']=music_list
         return context
 
@@ -329,10 +328,6 @@ class QuerySetToDict():
             for song in self.songs:
                 self.music_list.append({'name': song.name, 'music': song.song.url})
             return self.music_list
-
-
-
-
 
 
 

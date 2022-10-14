@@ -35,8 +35,8 @@
             {% csrf_token %}
             <div class="form-title">Регистрация</div>
             <div>
-              <span class="title"></span>
-              <span class="inpt"></span>
+              <span class="title">логин:</span>
+              <span class="inpt">{{ reg_form.username }}</span>
             </div>
             <div>
               <span class="title">email:</span>
