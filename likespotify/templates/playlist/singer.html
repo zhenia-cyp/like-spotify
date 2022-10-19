@@ -24,7 +24,7 @@
         <div class="auth">
           <p><a href="">Log out</a></p>
         </div>
-        <p>Добро пожаловать: {{ user.username }}</p>
+        <p>Hello: {{ user.username }}</p>
       </div>
     </div>
 
@@ -34,10 +34,10 @@
           <form action="/playlists/singer/" method="post">
             {% csrf_token %}
             <div>
-              <span class="title">исполнитель песни:</span>
+              <span class="title">виконавець:</span>
               <span class="inpt">{{ singerform.name }}</span>
             </div>
-            <button type="submit">добавить</button>
+            <button type="submit">додати</button>
           </form>
         </div>
       </div>

@@ -24,7 +24,7 @@
           <p><a class="plus" href="/users/logout/">log out</a></p>
         </div>
         <p>
-          Добро пожаловать:
+          Hello:
           <a class="plus" href="">{{ user.username }}</a>
         </p>
       </div>
@@ -40,26 +40,26 @@
         >
           {% csrf_token %}
           <div>
-            <span class="title"> название альбома:</span>
+            <span class="title"> назва альбому:</span>
             <span class="inpt">{{ albumform.name}}</span>
           </div>
           <div hidden>
             <span class="inpt"> {{ albumform.type}}</span>
           </div>
           <div>
-            <span class="title">год выпуска:</span>
+            <span class="title">рік створення:</span>
             <span class="inpt">{{ albumform.year }}</span>
           </div>
           <div>
-            <span class="title">фото для альбома:</span>
-            <span class="title">или оставьте поле пустым</span>
+            <span class="title">фото для альбому:</span>
+            <span class="title">або залиште поле пустим</span>
             <span class="inpt">{{ albumform.image }}</span>
           </div>
           <div>
-            <span class="title">автор альбома:</span>
-            <span class="title">выберите из списка</span>
+            <span class="title">автор альбому:</span>
+            <span class="title">виберіть з списку</span>
             <div class="add-singer">
-              или <a href="/playlists/singer/">добавить исполнителя</a>
+              или <a href="/playlists/singer/">додати виконавця</a>
             </div>
             <span class="inpt">{{ albumform.singer }}</span>
           </div>
@@ -70,7 +70,7 @@
             <span class="inpt">{{ albumform.creator }}</span>
           </div>
 
-          <button type="submit">cохранить</button>
+          <button type="submit">зберегти</button>
         </form>
         <div class="errors"><span> {{ albumform.errors.as_text }}</span></div>
       </div>

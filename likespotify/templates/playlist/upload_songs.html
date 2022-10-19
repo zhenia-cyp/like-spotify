@@ -25,7 +25,7 @@
           <p><a href="">log out</a></p>
         </div>
         <p>
-          Добро пожаловать:
+          Hello:
           <a href="">{{ user.username }}</a>
         </p>
       </div>
@@ -33,7 +33,7 @@
     <div class="main">
       <div class="container">
         <div class="form">
-          <p>Выберите песни:</p>
+          <p>Виберіть трек:</p>
           <p></p>
           <form action="/playlists/upload/songs/{{num}}/" method="post">
             {% csrf_token %}
@@ -52,7 +52,7 @@
               <hr>
               {% endfor %}
             </div>
-            <button class="btn btn--load" type="submit">загрузить</button>
+            <button class="btn btn--load" type="submit">завантижити</button>
           </form>
         </div>
       </div>

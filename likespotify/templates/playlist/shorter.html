@@ -47,8 +47,8 @@
             {% csrf_token %}
             <div>
               <p></p>
-              <span class="title">чтобы удобней было делиться альбомами</span>
-              <span class="title">вы можете сократить ссылку</span>
+              <span class="title">щоб зручніше ділитися альбомами</span>
+              <span class="title">вы можете створити короткий лінк</span>
               <span class="title title--link"
                 ></span
               >
@@ -59,16 +59,16 @@
         </div>
 
         <div class="cut-url">
-          <p>cокращенные ссылки:</p>
+          <p>ваші короткі лінки:</p>
           {% for link in user_short_links %}
           <div class="cut-url-menu">
-            <span><small>количество кликов: {{link.clicks}}</small></span>
+            <span><small>кількість кліків: {{link.clicks}}</small></span>
             <a class="plus" href="/{{link.short_url}}/"
               >{{link.get_short_link}}</a
             >
             <span class="del"
               ><a class="plus" href="/shorter/delete/short/link/{{link.id}}/"
-                ><small>удалить</small></a
+                ><small>видалити</small></a
               ></span
             >
           </div>

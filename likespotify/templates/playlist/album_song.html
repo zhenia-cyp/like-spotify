@@ -24,7 +24,7 @@
           <p><a href="">log out</a></p>
         </div>
         <p>
-          Добро пожаловать:
+          Hello:
           <a href="">{{ user.username }}</a>
         </p>
       </div>
@@ -39,26 +39,26 @@
           >
             {% csrf_token %}
             <div>
-              <span>название трека:</span>
+              <span>назва:</span>
               <span>{{ songform.name }}</span>
             </div>
             <div>
               <span>{{ songform.song }}</span>
             </div>
             <div>
-              <span>исполнитель:</span>
-              <span>выберите исполнителя из списка</span>
-              <span>или нажмите "добавить исполнителя"</span>
+              <span>виконавець:</span>
+              <span>виберіть виконавця зі списку</span>
+              <span>або натисніть "додати виконавця"</span>
               <span> {{ songform.singer }}</span>
-              <a href="/playlists/singer/">добавить исполнителя</a>
+              <a href="/playlists/singer/">додати виконавця</a>
             </div>
-            <div class="song-text">
-              <span>текст песни:</span>
-              <span>или оставьте поле пустым</span>
+            <div hidden class="song-text">
+              <span>текст пісні:</span>
+              <span>або залиште поле пустим</span>
               <span> {{songform.text}}</span>
             </div>
             <div hidden>{{songform.album}}</div>
-            <button type="submit" class="btn">загрузить</button>
+            <button type="submit" class="btn">завантажити</button>
           </form>
         </div>
       </div>

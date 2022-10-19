@@ -330,6 +330,10 @@ class QuerySetToDict():
             return self.music_list
 
 
+class UploadMusic(TemplateView):
+    template_name = 'aboutus.html'
+
+
 
 def get_id_ownalbums(own_albums):
     """function return albums ids"""

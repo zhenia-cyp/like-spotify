@@ -24,7 +24,7 @@
           <p><a class="plus" href="/users/logout/">log out</a></p>
         </div>
         <p>
-          Добро пожаловать:
+         Hello:
           <a class="plus" href="">{{ user.username }}</a>
         </p>
       </div>
@@ -33,21 +33,22 @@
     <div class="main">
       <div class="album-menu">
         <span>альбомы: </span>
-        <a class="plus" href="/playlists/home/">все</a>
-        <a class="plus" href="/playlists/home/?key=my">мои</a>
-        <a class="plus" href="/playlists/home/?key=add">добавленные</a>
+        <a class="plus" href="/playlists/home/">всі</a>
+        <a class="plus" href="/playlists/home/?key=my">мої</a>
+        <a class="plus" href="/playlists/home/?key=add">додані</a>
       </div>
 
       <div class="container">
         <div class="albums">
           <div class="side-bar">
             <ul class="side-bar-menu">
-              <li><a class="plus" href="/playlists/home/">Главная</a></li>
+              <li><a class="plus" href="/playlists/home/">Головна</a></li>
               <li>
-                <a class="plus" href="/playlists/page/album/">создать альбом</a>
+                <a class="plus" href="/playlists/page/album/">створити альбом</a>
               </li>
-              <li><a class="plus" href="/playlists/search/">поиск</a></li>
+              <li><a class="plus" href="/playlists/search/">пошук</a></li>
               <li><a class="plus" href="/shorter/url/page/">short link</a></li>
+
               <!--<li><a href="#"></a></li>-->
               <!--<li><a href="#"></a></li>-->
             </ul>
@@ -86,7 +87,7 @@
                 <span
                   ><small
                     ><a class="plus" href="/playlists/edit/album/{{album.id}}/"
-                      >редактировать</a
+                      >редагувати</a
                     ></small
                   ></span
                 >
@@ -106,7 +107,7 @@
                 <span style="visibility: hidden"
                   ><small
                     ><a href="/playlists/delete/current/album/{{album.id}}/"
-                      >удалить</a
+                      >видалити</a
                     ></small
                   ></span
                 >
@@ -126,7 +127,7 @@
                       ><a
                         class="plus"
                         href="/playlists/delete/current/album/{{album.id}}/"
-                        >удалить</a
+                        >видалити</a
                       ></small
                     ></span
                   >

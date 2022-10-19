@@ -25,7 +25,7 @@
           <p><a class="plus" href="/users/logout/">log out</a></p>
         </div>
         <p>
-          Добро пожаловать:
+          Hello:
           <a class="plus" href="">{{ user.username }}</a>
         </p>
       </div>
@@ -34,11 +34,11 @@
       <div class="container">
         <div class="side-bar">
           <ul class="side-bar-menu">
-            <li><a class="plus" href="/playlists/home/">Главная</a></li>
+            <li><a class="plus" href="/playlists/home/">Головна</a></li>
             <li>
-              <a class="plus" href="/playlists/page/album/">создать альбом</a>
+              <a class="plus" href="/playlists/page/album/">створити альбом</a>
             </li>
-            <li><a class="plus" href="/playlists/search/">поиск</a></li>
+            <li><a class="plus" href="/playlists/search/">пошук</a></li>
             <!--                    <li><a href="#"></a></li>-->
             <!--                    <li><a href="#"></a></li>-->
             <!--                    <li><a href="#"></a></li>-->
@@ -50,7 +50,7 @@
             <form class="search" action="/playlists/search/" method="post">
               {% csrf_token %}
               <input type="search" name="search" placeholder="..." />
-              <button>поиск</button>
+              <button>пошук</button>
             </form>
           </div>
 
@@ -92,7 +92,7 @@
                     ><a
                       class="plus"
                       href="/playlists/take/album/{{ album.id }}/"
-                      >забрать альбом</a
+                      >забрати альбом</a
                     ></small
                   >
                   {% endif %}
