@@ -10,7 +10,7 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from django.views.generic.base import TemplateView
-import json
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 
@@ -267,9 +267,10 @@ class BreakAddedAlbum(DetailView):
 
 
 
-class HomePageView(TemplateView):
+class HomePageView(LoginRequiredMixin,TemplateView):
     """this class leads to the home page """
     template_name = 'playlist/home.html'
+    login_url = 'authorizpage'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

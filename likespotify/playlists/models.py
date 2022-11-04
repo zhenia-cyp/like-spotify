@@ -77,8 +77,8 @@ class Song(models.Model):
     image = models.ImageField(upload_to='songs_images',blank=True)
     name = models.CharField('название',max_length=150)
     singer = models.ForeignKey(Singer,verbose_name='исполнитель',on_delete=models.CASCADE,null=True,blank=True)
-    album = models.ManyToManyField(Album,verbose_name='альбом',null=True,blank=True)
-    playlist = models.ManyToManyField(Playlist,verbose_name='плейлист',null=True, blank=True)
+    album = models.ManyToManyField(Album,verbose_name='альбом',blank=True)
+    playlist = models.ManyToManyField(Playlist,verbose_name='плейлист', blank=True)
     text= models.TextField(verbose_name='текст песни',null=True, blank=True)
 
     def __str__(self):

@@ -140,7 +140,7 @@ button:hover {
 }
 
 .auth {
-  visibility: hidden;
+  visibility: visible;
 }
 
 @media (max-width: 600px) {
