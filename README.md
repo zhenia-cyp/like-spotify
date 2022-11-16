@@ -1,17 +1,19 @@
 Likespotify
 
 This music application where the users can create their own albums (crud operations), listen to 
-favorite music and share them with each other.
+favorite music and share them with each other
 
 Features
 
-- User registration/authentication.
-- Login/logout.
+- User registration/authentication
+- Login/logout
 - The user can create an album and share it with others.
 If the album is created by another user, then crud functions 
-on the album cannot be done.
-- integrated url shorter app.
-- custom javascript audio player.
+on the album cannot be done
+- integrated url shorter app
+- custom javascript audio player
+- search
+- adaptive layout
 
 Technologies
 

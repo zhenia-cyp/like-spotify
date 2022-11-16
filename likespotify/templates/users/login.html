@@ -22,7 +22,7 @@
 
           <p><a href="/users/registration/">registration</a></p>
         </div>
-        <p class="auth"></p>
+
       </div>
     </div>
     <div class="main">
@@ -31,7 +31,7 @@
           <form action="/users/login/" method="post">
             {% csrf_token %}
             <div>
-              <span class="title">логин:</span>
+              <span class="title">логін:</span>
               <span class="inpt"> {{ loginform.username }}</span>
             </div>
             <div>

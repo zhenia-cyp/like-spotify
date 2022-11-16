@@ -50,6 +50,7 @@ body {
   color: white;
   font-weight: 700;
   font-size: 19px;
+
 }
 
 .side-bar {
@@ -141,6 +142,12 @@ button:hover {
 
 .auth {
   visibility: visible;
+  text-decoration: none;
+}
+
+.auth > p> a{
+
+  text-decoration: none;
 }
 
 @media (max-width: 600px) {
