@@ -23,7 +23,7 @@
           <p><a class="text plus" href="">log out</a></p>
         </div>
         <p>
-          Добро пожаловать:
+          Вітаємо:
           <a class="text plus" href="{% url 'profile' %}"
             >{{ user.username }}</a
           >
@@ -51,24 +51,24 @@
             {% csrf_token %}
             <div>
               <p></p>
-              <span class="title">вставьте ссылку:</span>
+              <span class="title">вставте лінк, який потрібно скоротити:</span>
               <span class="inpt"><input type="text" name="url" /></span>
             </div>
-            <button type="submit" class="btn">создать</button>
+            <button type="submit" class="btn">створити</button>
           </form>
         </div>
 
         <div class="cut-url">
-          <p>cокращенные ссылки:</p>
+          <p>скорочені лінки:</p>
           {% for link in user_short_links %}
           <div class="cut-url-menu">
-            <span><small>количество кликов: {{link.clicks}}</small></span>
+            <span><small>кількість кліків: {{link.clicks}}</small></span>
             <a class="plus" href="/{{link.short_url}}/"
               >{{link.get_short_link}}</a
             >
             <span class="del"
               ><a class="plus" href="/shorter/delete/short/link/{{link.id}}/"
-                ><small>удалить</small></a
+                ><small>видалити</small></a
               ></span
             >
           </div>

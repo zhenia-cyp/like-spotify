@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width" />
     {% load static %}
     <link rel="stylesheet" type="text/css" href="shorter.css" />
-    <title>Title</title>
+    <title>Shorter</title>
   </head>
   <body>
     <div class="header">
@@ -19,7 +19,7 @@
           <p><a class="text plus" href="">log out</a></p>
         </div>
         <p>
-          Добро пожаловать:
+          Вітаємо:
           <a class="text plus" href="{% url 'profile' %}"
             >{{ user.username }}</a
           >
@@ -54,7 +54,7 @@
               >
               <span class="inpt"><input type="text" name="url" /></span>
             </div>
-            <button type="submit" class="btn">создать</button>
+            <button type="submit" class="btn">створити</button>
           </form>
         </div>
 

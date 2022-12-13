@@ -1,5 +1,7 @@
 Likespotify
 
+http://likespotify.net.ua/
+
 This music application where the users can create their own albums (crud operations), listen to 
 favorite music and share them with each other
 

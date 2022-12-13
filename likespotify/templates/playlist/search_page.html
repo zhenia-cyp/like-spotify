@@ -9,7 +9,7 @@
       type="text/css"
       href="{% static '/users/css/search_page.css' %}"
     />
-    <title>Likespotify</title>
+    <title>Search</title>
   </head>
   <body>
     {% if user.is_authenticated %}
@@ -25,7 +25,7 @@
           <p><a class="plus" href="/users/logout/">log out</a></p>
         </div>
         <p>
-          Hello:
+          Вітаємо:
           <a class="plus" href="">{{ user.username }}</a>
         </p>
       </div>

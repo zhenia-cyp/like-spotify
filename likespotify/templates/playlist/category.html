@@ -10,7 +10,7 @@
       href="{% static 'users/css/singer.css' %}"
     />
 
-    <title>Title</title>
+    <title>Сategory</title>
   </head>
   <body>
     {% if user.is_authenticated %}
@@ -34,7 +34,7 @@
           <form action="/playlists/category/" method="post">
             {% csrf_token %}
             <div>
-              <span class="title">категія:</span>
+              <span class="title">категорія:</span>
               <span class="inpt">{{ categoryform.name }}</span>
             </div>
             <button type="submit">додати</button>

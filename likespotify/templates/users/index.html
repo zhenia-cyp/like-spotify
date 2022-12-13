@@ -9,7 +9,9 @@
       type="text/css"
       href="{% static '/users/css/index.css' %}"
     />
+      <title>Likespotify</title>
   </head>
+
   <body class="login-page">
     <div class="header">
       <div class="container">
@@ -20,9 +22,10 @@
         </div>
         <div class="auth">
           <p><a class="plus" href="/users/logout/">log out</a></p>
+{#          <p><a class="plus" href="/users/login/">login</a></p>#}
         </div>
         <p>
-          Добро пожаловать!
+          Вітаємо!
           <a class="plus" href="{% url 'profile' %}"></a>
         </p>
       </div>
@@ -33,9 +36,9 @@
         <div class="form">
           <form action="" method="post">
             {% csrf_token %}
-            <div class="form-title">Регистрация</div>
+            <div class="form-title">Реєстрація</div>
             <div>
-              <span class="title">логин:</span>
+              <span class="title">логін:</span>
               <span class="inpt">{{ reg_form.username }}</span>
             </div>
             <div>
@@ -63,11 +66,11 @@
               </span>
             </div>
             <div>
-              <span class="title">подтвердите пароль:</span>
+              <span class="title">підтвердьте пароль:</span>
               <span class="inpt"> {{ reg_form.password2 }}</span>
             </div>
             <button type="submit" class="btn btn-outline-danger">
-              зарегистрироваться
+              зареєструватися
             </button>
           </form>
         </div>
