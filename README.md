@@ -8,7 +8,6 @@ favorite music and share them with each other
 Features
 
 - User registration/authentication
-- Login/logout
 - The user can create an album and share it with others.
 If the album is created by another user, then crud functions 
 on the album cannot be done
